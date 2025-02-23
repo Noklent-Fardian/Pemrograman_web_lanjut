@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('items', ItemController::class); // resource controller dengan nama items
+Route::resource('items', ItemController::class); // resource controller dengan nama items dari controller ItemController
