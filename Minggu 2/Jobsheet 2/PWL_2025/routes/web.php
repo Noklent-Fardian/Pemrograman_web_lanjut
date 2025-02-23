@@ -31,3 +31,13 @@ Route::get('/welcome', function () {
 Route::get('/about', function () {
     return 'NIM : 2341720082 , Nama : Noklent Fardian';
 });
+Route::get('/user/{name}', function ($name) {
+    return 'Nama saya ' . $name;
+});
+
+Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
+    return 'Pos ke-' . $postId . " Komentar ke-: " . $commentId;
+});
+Route::get('/article/{id}', function ($id) {
+    return 'Halaman Artikel  dengan ID  ' . $id;
+});
