@@ -6,6 +6,7 @@ use App\Http\Controllers\ArticleContoller;
 use App\Http\Controllers\AboutContoller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 
 // Route::get('/', [PageController::class, 'index']);
 // Route::get('/about', [PageController::class, 'about']);
@@ -22,13 +23,13 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/about', [AboutContoller::class,'about']);
+Route::get('/about', [AboutContoller::class, 'about']);
 
-Route::get('/articles/{id}', [ArticleContoller::class,'articles']);
+Route::get('/articles/{id}', [ArticleContoller::class, 'articles']);
 
-Route::get('/helllo', [WelcomeController::class,'hello']);
+Route::get('/helllo', [WelcomeController::class, 'hello']);
 
 Route::get('/world', function () {
     return 'World';
@@ -62,3 +63,14 @@ Route::get('/user/{name?}', function ($name = 'John') {
 // return redirect()->route('profile');
 
 
+Route::resource('photos', PhotoController::class);
+Route::resource('photos', PhotoController::class)->only([
+    'index',
+    'show'
+]);
+Route::resource('photos', PhotoController::class)->except([
+    'create',
+    'store',
+    'update',
+    'destroy'
+]);
