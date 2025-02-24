@@ -17,41 +17,6 @@ style="width:4.22986in;height:3.17014in" />
 >
 > D-IV Teknik Informatika
 >
-> <img src="Photo/jwel4e4x.png" style="width:1.26667in;height:0.95in" />**Laporan**
-> **Pemrogaman** **WEB** **Lanjut** **Jobsheet**
-> **2**<img src="Photo/k0e0re3y.png"
-> style="width:3.17847in;height:3.14514in" /><img src="Photo/idtkiuzk.png"
-> style="width:4.74167in;height:2.51875in" />
->
-> **1.** **Pratikum**
->
-> **1.1** **Percobaan** **1:** **Melakukan** **Instalasi** **Java**
-> **Development** **Kit/JDK**
->
-> 1\. Cara seting PATH adalah buka Control Panel-\> System-\> Advanced
-> System Seting-\> Environment Variabel. Kemudian cari variabel PATH.
->
-> Contoh : C:\Progam Files\Java\jdk-20\bin
->
-> 2\. Buka Command Prompt (Wind+R, kemudian ketik cmd), selanjutnya
-> ketikan perintah
->
-> javac , jika perintah tersebut dikenali maka lingkungan operasi
-> Windows telah
->
-> mendukung program java, tetapi jika belum dikenali lakukan pengecekan
-> pada seting
->
-> PATH (dimungkinkan ada kesalahan ketika memasukkan lokasi direktori
-> bin di variabel
->
-> PATH).
-
-1 **Laporan** **Pemrogaman** **WEB** **Lanjut-Jobsheet** **2**
-
-> <img src="Photo/4ymczpel.png" style="width:1.26667in;height:0.95in" />**Laporan**
-> **Pemrogaman** **WEB** **Lanjut** **Jobsheet**
-> **2**<img src="Photo/rnapli2p.png"
 > style="width:6.26805in;height:1.78958in" /><img src="Photo/cmvbm2cr.png"
 > style="width:6.26805in;height:1.54792in" />
 >
