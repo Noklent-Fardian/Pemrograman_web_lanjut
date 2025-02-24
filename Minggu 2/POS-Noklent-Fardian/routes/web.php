@@ -22,6 +22,13 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+Route::prefix('category')->group(function () {
+    Route::get('/food-beverage', [ProductController::class, 'foodBeverage']);
+    Route::get('/beauty-health', [ProductController::class, 'beautyHealth']);
+    Route::get('/home-care', [ProductController::class, 'homeCare']);
+    Route::get('/baby-kid', [ProductController::class, 'babyKid']);
+});
+
 Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
