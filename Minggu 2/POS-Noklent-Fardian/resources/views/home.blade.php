@@ -64,7 +64,7 @@
                     </div>
                     <h5 class="fw-bold mb-3">Users</h5>
                     <p class="text-muted small mb-4">Manage user accounts</p>
-                    <a href="{{ route('users.index') }}" class="btn btn-info w-100 btn-modern">
+                    <a href="{{ route('user.profile', ['id' => '234710082', 'name' => 'Nokklent Fardian']) }}" class="btn btn-info w-100 btn-modern">
                         <span>Go to Users</span>
                         <i class="fas fa-arrow-right ms-2"></i>
                     </a>
