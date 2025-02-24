@@ -10,6 +10,12 @@ class WelcomeController extends Controller
     {
         return 'Hello World';
     }
+    public function greeting()
+    {
+        return view('blog.hello')
+            ->with('name', 'Noklent Fradian')
+            ->with('occupation', 'CEO Tesla Company');
+    }
     /**
      * Display a listing of the resource.
      */
