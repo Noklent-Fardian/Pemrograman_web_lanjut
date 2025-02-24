@@ -1,6 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ArticleContoller;
+use App\Http\Controllers\AboutContoller;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+
+// Route::get('/', [PageController::class, 'index']);
+// Route::get('/about', [PageController::class, 'about']);
+// Route::get('/articles/{id}', [PageController::class, 'articles']);
 
 /*
 |--------------------------------------------------------------------------
@@ -13,24 +22,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index']);
 
-Route::get('/hello', function () {
-    return 'Hello World';
-});
+Route::get('/about', [AboutContoller::class,'about']);
+
+Route::get('/articles/{id}', [ArticleContoller::class,'articles']);
+
+Route::get('/helllo', [WelcomeController::class,'hello']);
 
 Route::get('/world', function () {
     return 'World';
 });
 
-Route::get('/welcome', function () {
-    return 'Selamat Datang Noklent';
-});
-Route::get('/about', function () {
-    return 'NIM : 2341720082 , Nama : Noklent Fardian';
-});
 // Route::get('/user/{name}', function ($name) {
 //     return 'Nama saya ' . $name;
 // });
@@ -38,26 +41,24 @@ Route::get('/about', function () {
 Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
     return 'Pos ke-' . $postId . " Komentar ke-: " . $commentId;
 });
-Route::get('/article/{id}', function ($id) {
-    return 'Halaman Artikel  dengan ID  ' . $id;
-});
+
 
 Route::get('/user/{name?}', function ($name = 'John') {
     return 'Nama saya ' . $name;
 });
 
 
-// Name route
-Route::get('/user/profile', function () {
-    // 
-})->name('profile');
-Route::get(
-    '/user/profile',
-    // [UserProfileController::class, 'show']
-)->name('profile');
-// Generating URLs... 
-$url = route('profile');
-// Generating Redirects... 
-return redirect()->route('profile');
+// // Name route
+// Route::get('/user/profile', function () {
+//     // 
+// })->name('profile');
+// Route::get(
+//     '/user/profile',
+//     // [UserProfileController::class, 'show']
+// )->name('profile');
+// // Generating URLs... 
+// $url = route('profile');
+// // Generating Redirects... 
+// return redirect()->route('profile');
 
 
