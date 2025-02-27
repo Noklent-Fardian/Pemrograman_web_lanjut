@@ -1,4 +1,4 @@
-<img src="photophoto/mnasrrg4.png"
+<img src="photo/mnasrrg4.png"
 style="width:2.67778in;height:2.00694in" />
 
 > Laporan Pemrogaman WEB Lanjut
@@ -19,7 +19,7 @@ Jobsheet 3 MIGRATION, SEEDER, DB FAÇADE, QUERY BUILDER, dan ELOQUENT ORM
 >
 > D-IV Teknik Informatika
 
-<img src="photophoto/dpgwdh5o.png"
+<img src="photo/dpgwdh5o.png"
 style="width:6.26805in;height:2.68264in" />
 
 **Praktikum** **1** **PENGATURAN** **DATABASE**
@@ -32,13 +32,13 @@ style="width:6.26805in;height:2.68264in" />
 > 1\. Q: Simpan kode pada tahapan 4 tersebut, kemudian jalankan perintah
 > ini pada terminal VSCode untuk melakukan migrasi
 >
-> <img src="photophoto/wswsfmuq.png"
-> style="width:6.26805in;height:1.70556in" /><img src="photophoto/rbpjpsfs.png"
+> <img src="photo/wswsfmuq.png"
+> style="width:6.26805in;height:1.70556in" /><img src="photo/rbpjpsfs.png"
 > style="width:6.26806in;height:1.32153in" />A:
 
-<img src="photophoto/ul2j0ug3.png"
-style="width:6.26805in;height:0.72847in" /><img src="photophoto/f1zdpdbt.png"
-style="width:6.26805in;height:0.79514in" /><img src="photophoto/enslelaz.png"
+<img src="photo/ul2j0ug3.png"
+style="width:6.26805in;height:0.72847in" /><img src="photo/f1zdpdbt.png"
+style="width:6.26805in;height:0.79514in" /><img src="photo/enslelaz.png"
 style="width:6.26805in;height:2.05833in" />
 
 > 2\. Q: Buat table database dengan migration untuk table m_kategori
@@ -52,21 +52,21 @@ style="width:6.26805in;height:2.05833in" />
 > 1\. Q: Simpan kode program Langkah 2, dan jalankan perintah php
 > artisan migrate. Amati apa yang terjadi pada database.
 >
-> <img src="photophoto/3eflet2m.png"
+> <img src="photo/3eflet2m.png"
 > style="width:6.26805in;height:1.05278in" />A: Tabel m_user akan dibuat
 > pada database
 
-<img src="photophoto/ef31wjka.png"
-style="width:4.94792in;height:3.55208in" /><img src="photophoto/pmn4mdpu.png"
+<img src="photo/ef31wjka.png"
+style="width:4.94792in;height:3.55208in" /><img src="photo/pmn4mdpu.png"
 style="width:6.26805in;height:1.04653in" />
 
 > 2\. Q
 
-<img src="photophoto/rxrorvbu.png"
+<img src="photo/rxrorvbu.png"
 style="width:6.26805in;height:1.4743in" />A: Pada migrations
 
-<img src="photophoto/04iqavrf.png"
-style="width:6.26805in;height:3.57014in" /><img src="photophoto/zy4ggt1a.png"
+<img src="photo/04iqavrf.png"
+style="width:6.26805in;height:3.57014in" /><img src="photo/zy4ggt1a.png"
 style="width:6.26805in;height:1.85486in" />
 
 Pada designer mysql
@@ -77,8 +77,8 @@ Pada designer mysql
 >
 > File seeder yang telah dibuat
 
-<img src="photophoto/by2axb4u.png"
-style="width:4.185in;height:2.29236in" /><img src="photophoto/rlcsi5l1.png"
+<img src="photo/by2axb4u.png"
+style="width:4.185in;height:2.29236in" /><img src="photo/rlcsi5l1.png"
 style="width:6.26805in;height:2.40139in" />
 
 > Running seder
@@ -90,13 +90,13 @@ style="width:6.26805in;height:2.40139in" />
 > table m_level di database, screenshot perubahan yang ada pada table
 > m_level
 >
-> <img src="photophoto/eqz3oos4.png"
+> <img src="photo/eqz3oos4.png"
 > style="width:4.68222in;height:2.19583in" />A: Jika saat pertama kali
 > Alamat /level diketik pada url maka halaman akan memunculkan tulisan
 > insert data berhasil, dan record akan bertambah pada databse
 
-<img src="photophoto/cig0iiek.png"
-style="width:5.58194in;height:1.5875in" /><img src="photophoto/rgscbuyw.png"
+<img src="photo/cig0iiek.png"
+style="width:5.58194in;height:1.5875in" /><img src="photo/rgscbuyw.png"
 style="width:5.56861in;height:2.03472in" />
 
 > 2\. Q: Kita coba jalankan di browser dengan url
@@ -109,11 +109,11 @@ style="width:5.56861in;height:2.03472in" />
 > 3\. Q : Kita coba modifikasi lagi file LevelController untuk melakukan
 > proses hapus data
 >
-> <img src="photophoto/3mzrlga5.png"
-> style="width:4.82194in;height:1.19722in" /><img src="photophoto/xc2ds4bo.png"
+> <img src="photo/3mzrlga5.png"
+> style="width:4.82194in;height:1.19722in" /><img src="photo/xc2ds4bo.png"
 > style="width:4.90958in;height:1.46319in" />A:
 
-<img src="photophoto/e0jyie2h.png"
+<img src="photo/e0jyie2h.png"
 style="width:6.26805in;height:3.23125in" />
 
 > 4\. Q : Coba kita perhatikan kode yang diberi tanda kotak merah,
@@ -129,12 +129,12 @@ style="width:6.26805in;height:3.23125in" />
 > table m_kategori di database, screenshot perubahan yang ada pada table
 > m_kategori
 >
-> <img src="photophoto/iuvholmp.png"
-> style="width:6.26805in;height:1.33819in" /><img src="photophoto/jxeiqxen.png"
+> <img src="photo/iuvholmp.png"
+> style="width:6.26805in;height:1.33819in" /><img src="photo/jxeiqxen.png"
 > style="width:6.26805in;height:1.14167in" />A:
 
-<img src="photophoto/05515p0n.png"
-style="width:6.26805in;height:1.06319in" /><img src="photophoto/4jods5em.png"
+<img src="photo/05515p0n.png"
+style="width:6.26805in;height:1.06319in" /><img src="photo/4jods5em.png"
 style="width:6.26805in;height:1.46597in" />
 
 > 2\. Q: Selanjutnya, kita modifikasi lagi file KategoriController untuk
@@ -142,20 +142,20 @@ style="width:6.26805in;height:1.46597in" />
 >
 > A:
 >
-> <img src="photophoto/40cngx2q.png"
+> <img src="photo/40cngx2q.png"
 > style="width:6.26805in;height:1.36319in" />3. Q: Kita coba modifikasi
 > lagi file KategoriController untuk melakukan proses hapus data A:
 >
 > 4\. Q: Silahkan dicoba pada browser dan amati apa yang terjadi.
 >
-> <img src="photophoto/mvdbdarg.png"
+> <img src="photo/mvdbdarg.png"
 > style="width:6.26805in;height:1.79444in" />A: Setelah menambahkan
 > qeuri builder pada KategoriController yang untuk mengread lalu
 > diretrun ke view/kategori maka halaman web akan memunculkan tampilan
 > table yang berisi data pada table kategori
 
-<img src="photophoto/qiqdlcrj.png"
-style="width:6.26805in;height:2.01042in" /><img src="photophoto/cazo4bj4.png"
+<img src="photo/qiqdlcrj.png"
+style="width:6.26805in;height:2.01042in" /><img src="photo/cazo4bj4.png"
 style="width:6.26805in;height:1.89444in" />
 
 **6.** **Praktikum** **6** **–** **Implementasi** **Eloquent** **ORM**
