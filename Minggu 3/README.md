@@ -19,32 +19,36 @@ Jobsheet 3 MIGRATION, SEEDER, DB FAÇADE, QUERY BUILDER, dan ELOQUENT ORM
 >
 > D-IV Teknik Informatika
 
-<img src="photo/dpgwdh5o.png"
-style="width:6.26805in;height:2.68264in" />
+
 
 **Praktikum** **1** **PENGATURAN** **DATABASE**
 
 > 1\. Q: Edit file .env dan sesuaikan dengan database yang telah dibuat
+> 
 > A:
+> <img src="photo/dpgwdh5o.png"
+style="width:6.26805in;height:2.68264in" />
 
 **Praktikum** **2** **:MIGRATIONS**
 
 > 1\. Q: Simpan kode pada tahapan 4 tersebut, kemudian jalankan perintah
 > ini pada terminal VSCode untuk melakukan migrasi
+>>A:
 >
 > <img src="photo/wswsfmuq.png"
 > style="width:6.26805in;height:1.70556in" /><img src="photo/rbpjpsfs.png"
-> style="width:6.26806in;height:1.32153in" />A:
+> style="width:6.26806in;height:1.32153in" /
 
-<img src="photo/ul2j0ug3.png"
-style="width:6.26805in;height:0.72847in" /><img src="photo/f1zdpdbt.png"
-style="width:6.26805in;height:0.79514in" /><img src="photo/enslelaz.png"
-style="width:6.26805in;height:2.05833in" />
 
 > 2\. Q: Buat table database dengan migration untuk table m_kategori
 > yang sama-sama tidak memiliki foreign key
 >
 > A: Ketik Commanf berikut
+>
+> <img src="photo/ul2j0ug3.png"
+style="width:6.26805in;height:0.72847in" /><img src="photo/f1zdpdbt.png"
+style="width:6.26805in;height:0.79514in" /><img src="photo/enslelaz.png"
+style="width:6.26805in;height:2.05833in" />
 
 **Praktikum** **2.2** **-** **Pembuatan** **file** **migrasi**
 **dengan** **relasi**
