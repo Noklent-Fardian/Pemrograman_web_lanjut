@@ -19,13 +19,14 @@ Jobsheet 3 MIGRATION, SEEDER, DB FAÇADE, QUERY BUILDER, dan ELOQUENT ORM
 >
 > D-IV Teknik Informatika
 
-<img src="photo/dpgwdh5o.png"
-style="width:6.26805in;height:2.68264in" />
+
 
 **Praktikum** **1** **PENGATURAN** **DATABASE**
 
 > 1\. Q: Edit file .env dan sesuaikan dengan database yang telah dibuat
 > A:
+<img src="photo/dpgwdh5o.png"
+style="width:6.26805in;height:2.68264in" />
 
 **Praktikum** **2** **:MIGRATIONS**
 
