@@ -4,7 +4,7 @@
 
 # Laporan Pemrogaman WEB Lanjut Jobsheet 4 MODEL dan ELOQUENT ORM
 
-<img src="photo/zfrhpism.png"
+<img src="Photo/zfrhpism.png"
 style="width:3.24722in;height:2.43333in" />
 
 ## Politeknik Negeri Malang Semester 4 2025
@@ -29,7 +29,7 @@ style="width:3.24722in;height:2.43333in" />
 > server. Kemudian jalankan link localhostPWL_POS/public/user pada
 > browser dan amati apa yang terjadi
 >
-> <img src="photo/45mckzsg.png"
+> <img src="Photo/45mckzsg.png"
 > style="width:6.26805in;height:2.0875in" />
 A: Kode tersebut akan membuat record baru dengan username : manager_dua pada 
 table user 
@@ -37,7 +37,7 @@ table user
 > 2\.Q: Simpan kode program Langkah 4 dan 5. Kemudian jalankan pada browser
 dan amati apa yang terjadi
 
-<img src="photo/svc2ot30.png"
+<img src="Photo/svc2ot30.png"
 style="width:6.26805in;height:1.23819in" />
 
 > A:
@@ -52,7 +52,7 @@ style="width:6.26805in;height:1.23819in" />
 >
 > 1\. Q: Simpan kode program Langkah 1 dan 2. Kemudian jalankan pada
 > browser dan amati apa yang terjadi dan beri penjelasan dalam laporan
-<img src="photo/11kqedlg.png"
+<img src="Photo/11kqedlg.png"
 style="width:5.54861in;height:1.23819in" />
 > A:
 >
@@ -62,14 +62,14 @@ style="width:5.54861in;height:1.23819in" />
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
 > A:
-<img src="photo/jjvfh0qj.png"
+<img src="Photo/jjvfh0qj.png"
 style="width:6.26805in;height:1.38194in" />
 Ketiga syntax terbsebut akan mempunyai output yang sama yaitu akan
 mengprint record pertama.
 
 > 3\. Q: Simpan kode program Langkah 8. Kemudian pada browser dan amati
 > apa yang terjadi dan beri penjelasan dalam laporan
-<img src="photo/3tztztui.png"
+<img src="Photo/3tztztui.png"
 style="width:6.26805in;height:1.6993in" />
 > A:
 >
@@ -81,7 +81,7 @@ style="width:6.26805in;height:1.6993in" />
 >
 > A: Akan muncul halaman error 404 karena id 21 tidak ditemukan.
 
-<img src="photo/bi3sh23n.png"
+<img src="Photo/bi3sh23n.png"
 style="width:3.5375in;height:1.79583in" />
 
 **Praktikum** **2.2** **–** **Not** **Found** **Exceptions**
@@ -89,12 +89,12 @@ style="width:3.5375in;height:1.79583in" />
 > 1\. Q: Simpan kode program Langkah 1. Kemudian jalankan pada browser
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
-> <img src="photo/xtox3ipm.png" style="width:4.08736in;height:1.45in" />A:
+> <img src="Photo/xtox3ipm.png" style="width:4.08736in;height:1.45in" />A:
 >
 > 2\. Q: Simpan kode program Langkah 3. Kemudian jalankan pada browser
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
-> <img src="photo/32zqpxsb.png"
+> <img src="Photo/32zqpxsb.png"
 style="width:3.27764in;height:1.66458in" />
 A:
 
@@ -106,7 +106,7 @@ A:
 
 > 1\. Q: Simpan kode program Langkah 1. Kemudian jalankan pada browser
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
-<img src="photo/bh2lfp1u.png"
+<img src="Photo/bh2lfp1u.png"
 style="width:5.7218in;height:0.54097in" />
 > A:
 >
@@ -117,17 +117,17 @@ style="width:5.7218in;height:0.54097in" />
 > browser, sebagai contoh bisa lihat gambar di bawah ini dan ubah script
 > pada file view supaya bisa muncul datanya
 >
-> <img src="photo/byem1fkk.png"
+> <img src="Photo/byem1fkk.png"
  style="width:6.26805in;height:2.74028in" />
  A: Ubah kode UserController
 > menjadi seperti berikut
 
-<img src="photo/1oqm2skt.png"
+<img src="Photo/1oqm2skt.png"
 style="width:4.85972in;height:5.11222in" />
-<img src="photo/b5qudc4d.png"
+<img src="Photo/b5qudc4d.png"
 style="width:6.26805in;height:1.925in" />
 
-<img src="photo/oanjhvoi.png"
+<img src="Photo/oanjhvoi.png"
 style="width:6.26805in;height:2.13056in" />
 
 **Praktikum** **2.4** **–** **Retreiving** **or** **Creating**
@@ -137,9 +137,9 @@ style="width:6.26805in;height:2.13056in" />
 > browser dan amati apa yang terjadi dan beri penjelasan dalam laporan
 
 > A:
-<img src="photo/c5avsnty.png"
+<img src="Photo/c5avsnty.png"
 style="width:6.26805in;height:0.73819in" />
-<img src="photo/fhia4j1w.png"
+<img src="Photo/fhia4j1w.png"
 style="width:6.26805in;height:0.91389in" />Akan terjadi error karena
 funsgi first tidak dapan mencari username manager dan nama Manager
 
@@ -152,7 +152,7 @@ namun karena attribute level id tidak ada value maka akan terjadi error.
 >
 > A:
 >
- <img src="photo/srvhntco.png"
+ <img src="Photo/srvhntco.png"
  style="width:6.26805in;height:0.92569in" />Dan akan membuat record
 > baru dalam database
 
@@ -163,20 +163,20 @@ namun karena attribute level id tidak ada value maka akan terjadi error.
 > A: Tetap akan error seperti percobaan 1, namun jika kita tambahkan
 > kode yang mendefiniskan user_level, maka tampilan akan menjadi serti
 > ini
-<img src="photo/lns3ncy1.png"
+<img src="Photo/lns3ncy1.png"
 style="width:5.91208in;height:2.0993in" />
 > 4\. Q: Simpan kode program Langkah 8. Kemudian jalankan pada browser
 > dan amati apa yang terjadi dan cek juga pada phpMyAdmin pada tabel
 > m_user serta beri penjelasan dalam laporan
 >
 > A:
-<img src="photo/ljz2ohug.png"
+<img src="Photo/ljz2ohug.png"
 style="width:6.26805in;height:1.90069in" />
 > 5\. Q: Simpan kode program Langkah 9. Kemudian jalankan pada browser
 > dan amati apa yang terjadi dan cek juga pada phpMyAdmin pada tabel
 > m_user serta beri penjelasan dalam laporan
 >
-><img src="photo/qs1vgufa.png"
+><img src="Photo/qs1vgufa.png"
  style="width:6.26805in;height:1.77778in" />A: Akan menyimpan haris
 > kode pada Use
 
@@ -188,7 +188,7 @@ style="width:6.26805in;height:1.90069in" />
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
 > A:
-<img src="photo/ypd3cmiy.png"
+<img src="Photo/ypd3cmiy.png"
 style="width:6.26805in;height:0.83889in" />
 > Ini berarti attributenya belum ada yang terganti.
 >
@@ -196,7 +196,7 @@ style="width:6.26805in;height:0.83889in" />
 > dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
 > A: 
-<img src="photo/wfejampw.png"
+<img src="Photo/wfejampw.png"
 style="width:6.26805in;height:0.83611in" />
 >
 > Hasil tersebut menandakan bahwa data telah pernah diubah.
@@ -207,7 +207,7 @@ style="width:6.26805in;height:0.83611in" />
 > 1\. Q: Simpan kode program Langkah 1 dan 2. Kemudian jalankan pada
 > browser dan amati apa yang terjadi dan beri penjelasan dalam laporan
 >
-> <img src="photo/50m4wvyg.png"
+> <img src="Photo/50m4wvyg.png"
 > style="width:5.46458in;height:3.32014in" />A: Akan berisikan table
 > crud yang berisikan m_user
 
@@ -216,7 +216,7 @@ style="width:6.26805in;height:0.83611in" />
 > 2,. Q: Simpan kode program Langkah 4 s/d 6. Kemudian jalankan pada
 > browser dan klik link “+ Tambah User” amati apa yang terjadi dan beri
 > penjelasan dalam laporan
-<img src="photo/glz4mv4v.png"
+<img src="Photo/glz4mv4v.png"
 style="width:6.26805in;height:2.25972in" />
 > A: Akan muncul halaman untuk mengcreate data baru untuk m_user
 >
@@ -225,8 +225,8 @@ style="width:6.26805in;height:2.25972in" />
 > pada browser dan input formnya dan simpan, kemudian amati apa yang
 > terjadi dan beri penjelasan dalam laporan
 >
-> <img src="photo/0vypcmci.png"
-> style="width:5.37569in;height:2.24653in" /><img src="photo/zzudqzyu.png"
+> <img src="Photo/0vypcmci.png"
+> style="width:5.37569in;height:2.24653in" /><img src="Photo/zzudqzyu.png"
 > style="width:6.26805in;height:1.43472in" />A: Akan maka jika isisan
 > disi dan tombol simpan diklik, maka akan menambahkan record baru
 
@@ -234,7 +234,7 @@ style="width:6.26805in;height:2.25972in" />
 > 3\. Q: Simpan kode program Langkah 11 sd 13. Kemudian jalankan pada
 > browser dan klik link “Ubah” amati apa yang terjadi dan beri
 > penjelasan dalam laporan
-<img src="photo/4hydprgx.png"
+<img src="Photo/4hydprgx.png"
 style="width:6.26805in;height:2.01944in" />
 > A: Halaman akan berubah menjadi halaman edit yang di mana value
 > isiannya akan sama dengan value yang kita pencet edit
@@ -243,7 +243,7 @@ style="width:6.26805in;height:2.01944in" />
 > localhost:8000/user/ubah/1 atau localhost/PWL_POS/public/user/ubah/1
 > pada browser dan ubah input formnya dan klik tombol ubah, kemudian
 > amati apa yang terjadi dan beri penjelasan dalam laporan
-<img src="photo/34h40wio.png"
+<img src="Photo/34h40wio.png"
 style="width:6.26805in;height:1.99097in" />
 > A: Akan mengubah value attribute untuk user_id 1 yaitu admin
 >
@@ -263,7 +263,7 @@ style="width:6.26805in;height:1.99097in" />
 > laporan
 >
 > A:
-<img src="photo/lkfvmdhk.png"
+<img src="Photo/lkfvmdhk.png"
 style="width:6.26805in;height:2.52292in" />
 > Kode akan mengambil semua user yang mempunyai level.
 >
@@ -271,6 +271,6 @@ style="width:6.26805in;height:2.52292in" />
 > pada browser, kemudian amati apa yang terjadi dan beri penjelasan
 > dalam laporan
 >
-> <img src="photo/beykbnwx.png"
+> <img src="Photo/beykbnwx.png"
 > style="width:6.26805in;height:3.43333in" />A: Akan menampilkan value
 > dari kode level dan nama level
