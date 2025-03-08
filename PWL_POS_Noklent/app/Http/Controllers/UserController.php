@@ -80,45 +80,51 @@ class UserController extends Controller
         // dd($user->wasChanged(['nama', 'username'])); // true
 
         /*========================= JS 4-2.6 ===============================*/
-        $user = UserModel::all();
+        //     $user = UserModel::all();
+        //     return view('user', ['data' => $user]);
+        // }
+        // public function tambah()
+        // {
+        //     return view('user.tambah');
+        // }
+        // public function tambah_simpan(Request $request)
+        // {
+        //     $data = [
+
+        //         'username' => $request->username,
+        //         'nama' => $request->nama,
+        //         'password' => Hash::make($request->password),
+        //         'level_id' => $request->level_id
+        //     ];
+        //     UserModel::create($data);
+        //     return redirect('/user');
+        // }
+        // public function edit($id)
+        // {
+        //     $user = UserModel::find($id);
+        //     return view('user.ubah', ['data' => $user]);
+        // }
+        // public function ubah_simpan( $id,Request $request)
+        // {
+        //     $user = UserModel::find($id);
+        //     $data = [
+        //         'username' => $request->username,
+        //         'nama' => $request->nama,
+        //         'password' => Hash::make($request->password),
+        //         'level_id' => $request->level_id,
+        //     ];
+        //     UserModel::where('user_id', $id)->update($data);
+        //     return redirect('/user');
+        // }
+        // public function hapus($id)
+        // {
+        //     UserModel::where('user_id', $id)->delete();
+        //     return redirect('/user');
+        // }
+
+        /*========================= JS 4-2.7 ===============================*/
+        $user = UserModel::with('level')->get();
+        //  dd($user);
         return view('user', ['data' => $user]);
-    }
-    public function tambah()
-    {
-        return view('user.tambah');
-    }
-    public function tambah_simpan(Request $request)
-    {
-        $data = [
-          
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id
-        ];
-        UserModel::create($data);
-        return redirect('/user');
-    }
-    public function edit($id)
-    {
-        $user = UserModel::find($id);
-        return view('user.ubah', ['data' => $user]);
-    }
-    public function ubah_simpan( $id,Request $request)
-    {
-        $user = UserModel::find($id);
-        $data = [
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id,
-        ];
-        UserModel::where('user_id', $id)->update($data);
-        return redirect('/user');
-    }
-    public function hapus($id)
-    {
-        UserModel::where('user_id', $id)->delete();
-        return redirect('/user');
     }
 }
