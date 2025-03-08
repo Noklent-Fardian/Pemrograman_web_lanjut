@@ -38,17 +38,30 @@ class UserController extends Controller
         //     abort(404);
         // $user = UserModel::findOrFail(1);
 
-        try {
-            $users = UserModel::Where('level_id', 2)->get();
-            $userCount = UserModel::where('level_id', 2)->count();
+        /*========================= JS 4-2.3 ===============================*/
+        // try {
+        //     $users = UserModel::Where('level_id', 2)->get();
+        //     $userCount = UserModel::where('level_id', 2)->count();
 
-            if ($userCount === 0) {
-                return response()->json(['message' => 'No users found'], 404);
-            }
+        //     if ($userCount === 0) {
+        //         return response()->json(['message' => 'No users found'], 404);
+        //     }
 
-            return view('user', ['userCount' => $userCount, 'data' => $users]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException) {
-            return response()->json(['message' => 'No users found'], 404);
-        }
+        //     return view('user', ['userCount' => $userCount, 'data' => $users]);
+        // } catch (\Illuminate\Database\Eloquent\ModelNotFoundException) {
+        //     return response()->json(['message' => 'No users found'], 404);
+        // }
+
+        /*========================= JS 4-2.4 ===============================*/
+        $user = UserModel::firstOrCreate(
+            [
+                'username' => 'manager33',
+                'nama' => 'Manager Tiga Tiga',
+                'password' => Hash::make('12345'),
+                'level_id' => 2
+            ],
+        );
+        $user->save();
+        return view('user', ['data' => $user]);
     }
 }
