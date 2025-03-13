@@ -23,6 +23,6 @@ class Kategori extends Model
      */
     public function barangs(): HasMany
     {
-        return $this->hasMany(Barang::class, 'kategori_id', 'kategori_id');
+        return $this->hasMany(Barang::class, 'kategori_id', 'kategori_id');// Define the relationship
     }
 }
