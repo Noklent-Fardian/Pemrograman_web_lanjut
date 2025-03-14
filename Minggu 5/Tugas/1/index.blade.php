@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-resonsive">
+                <div class="table-responsive">
                     @if (isset($dataTable))
                         {!! $dataTable->table(['class' => 'table table-striped table-hover border']) !!}
                     @else

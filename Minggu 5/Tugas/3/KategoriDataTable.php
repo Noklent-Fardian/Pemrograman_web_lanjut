@@ -23,21 +23,11 @@ class KategoriDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-            return '
-            <div class="d-flex">
-                <a href="' . route('kategori.edit', $row->kategori_id) . '" class="btn btn-sm btn-primary d-flex align-items-center" style="margin-right: 5px; height: 100%;">
-                <i class="fas fa-edit"></i> Edit
-                </a>
-                <form action="' . route('kategori.destroy', $row->kategori_id) . '" method="POST">
-                ' . csrf_field() . '
-                ' . method_field('DELETE') . '
-                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Apakah anda yakin akan mengahus item ini?\')">
-                    <i class="fas fa-trash"></i> Delete
-                </button>
-                </form>
-            </div>';
+                return '<a href="' . route('kategori.edit', $row->kategori_id) . '" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action']) // Ensure the action column is rendered as raw HTML
             ->setRowId('id');
     }
 
@@ -77,19 +67,17 @@ class KategoriDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
+           
             Column::make('kategori_id'),
             Column::make('kategori_kode'),
             Column::make('kategori_nama'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(200)
-                ->addClass('text-center'),
-
-
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 

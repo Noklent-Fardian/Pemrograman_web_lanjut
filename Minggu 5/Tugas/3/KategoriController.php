@@ -65,12 +65,4 @@ class KategoriController extends Controller
 
         return redirect()->route('kategori.index')->with('status', 'Data berhasil diperbarui');
     }
-
-    public function destroy($id)
-    {
-        $kategori = Kategori::findOrFail($id); // Find the kategori by ID or throw a 404 error
-        $kategori->delete(); // Delete the kategori
-
-        return redirect()->route('kategori.index')->with('status', 'Data berhasil dihapus');
-    }
 }

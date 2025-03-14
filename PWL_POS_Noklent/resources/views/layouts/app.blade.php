@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 {{-- Extend and customize the browser title --}}
 @section('title')
     {{ config('adminlte.title') }}

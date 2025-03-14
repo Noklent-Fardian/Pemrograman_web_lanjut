@@ -26,5 +26,4 @@ Route::prefix('kategori')->group(function () {
     Route::post('/', [KategoriController::class, 'store'])->name('kategori.store');
     Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
     Route::put('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-    Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 });
