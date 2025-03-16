@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('subtitle', 'Level')
-@section('content_header_title', 'Data Level')
-@section('content_header_subtitle', 'Management Data Level')
+@section('subtitle', 'User')
+@section('content_header_title', 'Data User')
+@section('content_header_subtitle', 'Management Data User')
 
 @section('content')
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Level</h3>
+            <h3 class="card-title">Data User</h3>
             <div class="card-tools">
-                <a href="{{ url('/level/tambah') }}" class="btn btn-sm btn-success">
-                    <i class="fas fa-plus"></i> Tambah Level
+                <a href="{{ url('/user/tambah') }}" class="btn btn-sm btn-success">
+                    <i class="fas fa-plus"></i> Tambah User
                 </a>
             </div>
         </div>

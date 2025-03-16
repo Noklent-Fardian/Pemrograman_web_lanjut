@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Level;
+use App\DataTables\UserDataTable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-
-    /*========================= JS 3 ===============================*/
+    public function index(UserDataTable $dataTable)
+    {
+               /*========================= JS 3 ===============================*/
     // $data = [
     //     'username' =>'Pelanggan 1'
     // ];
@@ -19,8 +22,6 @@ class UserController extends Controller
     // return view('user', ['data' => $data]); 
 
     /*========================= JS 4 ===============================*/
-    public function index()
-    {
         // $data = [
         //     'level_id' => 2,
         //     'username' => 'manager_tiga',
@@ -123,8 +124,76 @@ class UserController extends Controller
         // }
 
         /*========================= JS 4-2.7 ===============================*/
-        $user = User::with('level')->get();
-        //  dd($user);
-        return view('user', ['data' => $user]);
+        // $user = User::with('level')->get();
+        // //  dd($user);
+        // return view('user', ['data' => $user]);
+        return $dataTable->render('user.index');
+    }
+
+    public function tambah()
+    {
+        // Get all levels for the dropdown selection
+        $levels = Level::all();
+        return view('user.create', compact('levels'));
+    }
+
+    public function tambah_simpan(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:20|unique:m_user,username',
+            'nama' => 'required|string|max:100',
+            'password' => 'required|string|min:5',
+            'level_id' => 'required|exists:m_level,level_id',
+        ]);
+
+        User::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id,
+        ]);
+
+        return redirect('/user')->with('status', 'Data user berhasil ditambahkan');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $levels = Level::all();
+        return view('user.edit', compact('user', 'levels'));
+    }
+
+    public function ubah_simpan($id, Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:20|unique:m_user,username,' . $id . ',user_id',
+            'nama' => 'required|string|max:100',
+            'level_id' => 'required|exists:m_level,level_id',
+        ]);
+
+        $user = User::findOrFail($id);
+        
+        $data = [
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'level_id' => $request->level_id,
+        ];
+
+        // Only update password if it's provided
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect('/user')->with('status', 'Data user berhasil diperbarui');
+    }
+
+    public function hapus($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('/user')->with('status', 'Data user berhasil dihapus');
     }
 }

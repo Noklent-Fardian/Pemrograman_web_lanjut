@@ -330,7 +330,13 @@ return [
             'icon' => 'fas fa-layer-group',
             'active' => ['level', 'level/*'],
         ],
-      
+        //user
+              [
+                'text' => 'User',
+                'url'  => 'user',
+                'icon' => 'fas fa-user',
+                'active' => ['user', 'user/*'],
+              ]
     ],
 
     /*

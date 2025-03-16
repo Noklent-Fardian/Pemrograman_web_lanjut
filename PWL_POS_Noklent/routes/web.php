@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 Route::prefix('level')->group(function () {
     Route::get('/', [LevelController::class, 'index']);
-    Route::get('/tambah', [LevelController::class, 'tambah']);
+    Route::get('/tambah', [LevelController::class, 'tambah']) ;
     Route::post('/tambah_simpan', [LevelController::class, 'tambah_simpan']);
     Route::get('/ubah/{id}', [LevelController::class, 'edit']);
     Route::put('/ubah_simpan/{id}', [LevelController::class, 'ubah_simpan']);
@@ -21,7 +21,7 @@ Route::prefix('level')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/tambah', [UserController::class, 'tambah']);
-    Route::post('/tambah_simpan', [UserController::class, 'tambah_simpan']);
+    Route::post('/tambah_simpan', [UserController::class, 'tambah_simpan']); //store
     Route::get('/ubah/{id}', [UserController::class, 'edit']);
     Route::put('/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
     Route::get('/hapus/{id}', [UserController::class, 'hapus']);
