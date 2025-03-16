@@ -311,7 +311,7 @@ return [
         ],
 
         // Sidebar items:
-   
+
         [
             'text' => 'Dashboard',
             'url'  => 'home',
@@ -331,27 +331,34 @@ return [
             'active' => ['level', 'level/*'],
         ],
         //user
-              [
-                'text' => 'User',
-                'url'  => 'user',
-                'icon' => 'fas fa-user',
-                'active' => ['user', 'user/*'],
-              ],
-              //barang
-              [
-                'text' => 'Barang',
-                'url'  => 'barang',
-                'icon' => 'fas fa-boxes',
-                'active' => ['barang', 'barang/*'],
-              ],
-              //penjualan
-              [
-                'text' => 'Penjualan',
-                'url'  => 'penjualan',
-                'icon' => 'fas fa-shopping-cart',
-                'active' => ['penjualan', 'penjualan/*'],
-              ],
-              //laporan
+        [
+            'text' => 'User',
+            'url'  => 'user',
+            'icon' => 'fas fa-user',
+            'active' => ['user', 'user/*'],
+        ],
+        //barang
+        [
+            'text' => 'Barang',
+            'url'  => 'barang',
+            'icon' => 'fas fa-boxes',
+            'active' => ['barang', 'barang/*'],
+        ],
+
+        //stok
+        [
+            'text' => 'Stock',
+            'url'  => 'stock',
+            'icon' => 'fas fa-box',
+            'active' => ['stock', 'stock/*'],
+        ],
+        //penjualan
+        [
+            'text' => 'Penjualan',
+            'url'  => 'penjualan',
+            'icon' => 'fas fa-shopping-cart',
+            'active' => ['penjualan', 'penjualan/*'],
+        ],
     ],
 
     /*
