@@ -9,7 +9,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/level', [LevelController::class, 'index']);
+Route::prefix('level')->group(function () {
+    Route::get('/', [LevelController::class, 'index']);
+    Route::get('/tambah', [LevelController::class, 'tambah']);
+    Route::post('/tambah_simpan', [LevelController::class, 'tambah_simpan']);
+    Route::get('/ubah/{id}', [LevelController::class, 'edit']);
+    Route::put('/ubah_simpan/{id}', [LevelController::class, 'ubah_simpan']);
+    Route::get('/hapus/{id}', [LevelController::class, 'hapus']);
+});
 
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);

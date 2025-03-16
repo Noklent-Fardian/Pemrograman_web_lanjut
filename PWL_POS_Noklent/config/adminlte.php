@@ -323,6 +323,13 @@ return [
             'icon' => 'fas fa-list',
             'active' => ['kategori', 'kategori/*'],
         ],
+        //level
+        [
+            'text' => 'Level',
+            'url'  => 'level',
+            'icon' => 'fas fa-layer-group',
+            'active' => ['level', 'level/*'],
+        ],
       
     ],
 
