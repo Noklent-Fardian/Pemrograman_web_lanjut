@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BarangController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,4 +35,13 @@ Route::prefix('kategori')->group(function () {
     Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
     Route::put('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+});
+
+Route::prefix('barang')->group(function () {
+    Route::get('/', [BarangController::class, 'index'])->name('barang.index');
+    Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/edit/{id}', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::put('/update/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/delete/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 });

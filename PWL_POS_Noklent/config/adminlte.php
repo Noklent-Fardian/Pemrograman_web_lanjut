@@ -336,7 +336,22 @@ return [
                 'url'  => 'user',
                 'icon' => 'fas fa-user',
                 'active' => ['user', 'user/*'],
-              ]
+              ],
+              //barang
+              [
+                'text' => 'Barang',
+                'url'  => 'barang',
+                'icon' => 'fas fa-boxes',
+                'active' => ['barang', 'barang/*'],
+              ],
+              //penjualan
+              [
+                'text' => 'Penjualan',
+                'url'  => 'penjualan',
+                'icon' => 'fas fa-shopping-cart',
+                'active' => ['penjualan', 'penjualan/*'],
+              ],
+              //laporan
     ],
 
     /*
