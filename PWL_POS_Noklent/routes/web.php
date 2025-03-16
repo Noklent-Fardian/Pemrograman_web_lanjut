@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,4 +54,10 @@ Route::prefix('stock')->group(function () {
     Route::get('/edit/{id}', [StockController::class, 'edit'])->name('stock.edit');
     Route::put('/update/{id}', [StockController::class, 'update'])->name('stock.update');
     Route::delete('/delete/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
+});
+Route::prefix('penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/create', [PenjualanController::class, 'create'])->name('penjualan.create');
+    Route::post('/', [PenjualanController::class, 'store'])->name('penjualan.store');
+    Route::get('/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
 });

@@ -10,7 +10,7 @@ class PenjualanDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'penjualan_detail';  // Define the table name
+    protected $table = 't_penjualan_detail';  // Define the table name
     protected $primaryKey = 'penjualan_detail_id';  // Define the primary key
 
     protected $fillable = [
