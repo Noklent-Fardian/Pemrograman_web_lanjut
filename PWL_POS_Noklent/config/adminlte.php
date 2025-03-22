@@ -318,43 +318,53 @@ return [
             'icon' => 'fas fa-tachometer-alt',
         ],
         [
-            'text' => 'Kategori',
-            'url'  => 'kategori',
-            'icon' => 'fas fa-list',
-            'active' => ['kategori', 'kategori/*'],
+            'header' => 'Data Pengguna',
         ],
+
         //level
         [
-            'text' => 'Level',
+            'text' => 'Level User',
             'url'  => 'level',
             'icon' => 'fas fa-layer-group',
             'active' => ['level', 'level/*'],
         ],
         //user
         [
-            'text' => 'User',
+            'text' => 'Data User',
             'url'  => 'user',
             'icon' => 'fas fa-user',
             'active' => ['user', 'user/*'],
         ],
+
+        [
+            'header' => 'Data Barang',
+        ],
+        [
+            'text' => 'Kategori Barang',
+            'url'  => 'kategori',
+            'icon' => 'fas fa-tag',
+            'active' => ['kategori', 'kategori/*'],
+        ],
         //barang
         [
-            'text' => 'Barang',
+            'text' => 'Data Barang',
             'url'  => 'barang',
-            'icon' => 'fas fa-boxes',
+            'icon' => 'fas fa-list',
             'active' => ['barang', 'barang/*'],
         ],
-
+        [
+            'header' => 'Data Transaksi',
+        ],
         //stok
         [
-            'text' => 'Stock',
+            'text' => 'Stock Barang',
             'url'  => 'stock',
-            'icon' => 'fas fa-box',
+            'icon' => 'fas fa-boxes',
             'active' => ['stock', 'stock/*'],
         ],
         //penjualan
         [
-            'text' => 'Penjualan',
+            'text' => 'Transaki Penjualan',
             'url'  => 'penjualan',
             'icon' => 'fas fa-shopping-cart',
             'active' => ['penjualan', 'penjualan/*'],
