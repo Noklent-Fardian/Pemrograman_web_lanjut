@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Monolog\Level;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\LevelModel;
+use App\Models\Level;
 
 class UserController extends Controller
 {
@@ -25,7 +24,7 @@ class UserController extends Controller
 
         ];
         $activeMenu = 'user';
-        $levels = LevelModel::all(); // mengambil semua data level
+        $levels = Level::all(); // mengambil semua data level
         return view('user.index', compact('breadcrumb', 'page', 'activeMenu', 'levels'));
     }
     public function list(Request $request)
@@ -60,7 +59,7 @@ class UserController extends Controller
         $page = (object)[
             'title' => 'Tambah User Baru'
         ];
-        $level = LevelModel::all();
+        $level = Level::all();
         $activeMenu = 'user';
         return view('user.create', compact('breadcrumb', 'page', 'activeMenu', 'level'));
     }
@@ -109,7 +108,7 @@ class UserController extends Controller
         $page = (object)[
             'title' => 'Edit User'
         ];
-        $level = LevelModel::all();
+        $level = Level::all();
         $activeMenu = 'user';
         return view('user.edit', compact('breadcrumb', 'page', 'activeMenu', 'user', 'level'));
     }

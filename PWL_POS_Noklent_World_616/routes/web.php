@@ -8,6 +8,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\BarangController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,5 +62,15 @@ Route::prefix('level')->group(function () {
     Route::delete('/delete/{id}', [LevelController::class,'delete']);
 
 });
-
+Route::prefix('kategori')->group(function () {
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::get('/list', [KategoriController::class, 'list']);
+    Route::get('/create', [KategoriController::class, 'create']);
+    Route::post('/', [KategoriController::class, 'store']);
+    Route::post('/store', [KategoriController::class,'store']);
+    Route::get('/show/{id}', [KategoriController::class,'show']);
+    Route::get('/edit/{id}', [KategoriController::class,'edit']);
+    Route::put('/update/{id}', [KategoriController::class,'update']);
+    Route::delete('/delete/{id}', [KategoriController::class,'delete']);
+});
 Route::get('/welcome', [WelcomeController::class, 'index']);
