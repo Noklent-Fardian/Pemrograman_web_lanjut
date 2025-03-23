@@ -48,5 +48,18 @@ Route::prefix('barang')->group(function () {
     Route::put('/update/{id}', [BarangController::class, 'update']);
     Route::delete('/delete/{id}', [BarangController::class, 'delete']);
 });
+Route::prefix('level')->group(function () {
+    
+    Route::get('/', [LevelController::class, 'index']);
+    Route::get('/list', [LevelController::class, 'list']);
+    Route::get('/create', [LevelController::class, 'create']);
+    Route::post('/', [LevelController::class, 'store']);
+    Route::post('/store', [LevelController::class,'store']); //
+    Route::get('/show/{id}', [LevelController::class,'show']);
+    Route::get('/edit/{id}', [LevelController::class,'edit']);
+    Route::put('/update/{id}', [LevelController::class,'update']);
+    Route::delete('/delete/{id}', [LevelController::class,'delete']);
+
+});
 
 Route::get('/welcome', [WelcomeController::class, 'index']);
