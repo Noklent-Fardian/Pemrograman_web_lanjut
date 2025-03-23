@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Level;
-
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
@@ -64,23 +64,23 @@ class UserController extends Controller
         return view('user.create', compact('breadcrumb', 'page', 'activeMenu', 'level'));
     }
 
-    public function store(Request $request) 
-    { 
-        $request->validate([ 
+    public function store(Request $request)
+    {
+        $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter, dan bernilai unik di tabel m_user kolom username 
-            'username' => 'required|string|min:3|unique:m_user,username', 
+            'username' => 'required|string|min:3|unique:m_user,username',
             'nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter 
             'password' => 'required|min:5', // password harus diisi dan minimal 5 karakter 
             'level_id' => 'required|integer' // level_id harus diisi dan berupa angka 
-        ]); 
-        
-        UserModel::create([ 
-            'username' => $request->username, 
-            'nama' => $request->nama, 
+        ]);
+
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
             'password' => bcrypt($request->password), // password dienkripsi sebelum disimpan 
-            'level_id' => $request->level_id 
-        ]); 
-        
+            'level_id' => $request->level_id
+        ]);
+
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
     }
 
@@ -137,19 +137,57 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data user berhasil diubah');
     }
 
-public function delete($id){
-    $check = UserModel::find($id); 
-    if (!$check) { 
-        // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak 
-        return redirect('/user')->with('error', 'Data user tidak ditemukan'); 
+    public function delete($id)
+    {
+        $check = UserModel::find($id);
+        if (!$check) {
+            // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak 
+            return redirect('/user')->with('error', 'Data user tidak ditemukan');
+        }
+        try {
+            UserModel::destroy($id); // Hapus data level 
+            return redirect('/user')->with('success', 'Data user berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error 
+            return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
-    try{ 
-        UserModel::destroy($id); // Hapus data level 
-        return redirect('/user')->with('success', 'Data user berhasil dihapus'); 
-    } catch (\Illuminate\Database\QueryException $e) { 
-        // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error 
-        return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-    }
-}
 
+    public function create_ajax()
+    {
+        $level = Level::select('level_id', 'level_nama')->get();
+        return view('user.create_ajax', compact('level'));
+    }
+
+    public function store_ajax(Request $request)
+    {
+        // cek apakah request berupa ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'level_id' => 'required|integer',
+                'username' => 'required|string|min:3|unique:m_user,username',
+                'nama' => 'required|string|max:100',
+                'password' => 'required|min:6'
+            ];
+
+            // use Illuminate\Support\Facades\Validator;
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false, // response status, false: error/gagal, true: berhasil
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors() // pesan error validasi
+                ]);
+            }
+
+            UserModel::create($request->all());
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data user berhasil disimpan'
+            ]);
+        }
+        return redirect('/');
+    }
 }

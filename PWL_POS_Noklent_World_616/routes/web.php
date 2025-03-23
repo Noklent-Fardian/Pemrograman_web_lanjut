@@ -37,6 +37,8 @@ Route::prefix('user')->group(function () {
     Route::get('/edit/{id}', [UserController::class,'edit']);
     Route::put('/update/{id}', [UserController::class,'update']);
     Route::delete('/delete/{id}', [UserController::class,'delete']); 
+    Route::get('/create_ajax', [UserController::class, 'create_ajax']);
+    Route::post('/ajax', [UserController::class, 'store_ajax']); //
 
 });
 Route::prefix('barang')->group(function () {
