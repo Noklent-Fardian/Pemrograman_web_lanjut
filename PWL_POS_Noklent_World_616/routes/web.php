@@ -5,6 +5,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\BarangController;
 
 
 /*
@@ -35,6 +36,17 @@ Route::prefix('user')->group(function () {
     Route::put('/update/{id}', [UserController::class,'update']);
     Route::delete('/delete/{id}', [UserController::class,'delete']); 
 
+});
+Route::prefix('barang')->group(function () {
+    Route::get('/', [BarangController::class, 'index']);
+    Route::get('/list', [BarangController::class, 'list']);
+    Route::get('/create', [BarangController::class, 'create']);
+    Route::post('/', [BarangController::class, 'store']);
+    Route::post('/store', [BarangController::class,'store']); //
+    Route::get('/show/{id}', [BarangController::class, 'show']);
+    Route::get('/edit/{id}', [BarangController::class, 'edit']);
+    Route::put('/update/{id}', [BarangController::class, 'update']);
+    Route::delete('/delete/{id}', [BarangController::class, 'delete']);
 });
 
 Route::get('/welcome', [WelcomeController::class, 'index']);
