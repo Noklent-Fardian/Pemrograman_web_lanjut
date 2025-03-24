@@ -12,10 +12,13 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
+            
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <a href="{{ url('kategori/create') }}" class="btn btn-success btn-md">
+                <a href="{{ url('kategori/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Kategori Baru
                 </a>
+                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')"
+                    class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari kategori...">
@@ -26,10 +29,11 @@
                 <table class="table table-hover table-striped" id="table_kategori">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-top-0">Id</th>
-                            <th class="border-top-0">Kode Kategori</th>
+                            <th class="border-top-0">ID</th>
+                            <th class="border-top-0">Kode</th>
                             <th class="border-top-0">Nama Kategori</th>
                             <th class="border-top-0 text-center">Aksi</th>
+                            <th class="border-top-0 text-center">AJAX</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,25 +43,34 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data backdrop="static"
+        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
 @push('js')
     <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+        var dataKategori;
         $(document).ready(function() {
             // Initialize DataTable
-            var dataKategori = $('#table_kategori').DataTable({
+            dataKategori = $('#table_kategori').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
                     "url": "{{ url('kategori/list') }}",
                     "dataType": "json",
-                    "type": "GET"
+                    "type": "GET",
                 },
+                
                 columns: [{
                     data: "kategori_id",
                     className: "text-center",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: true
                 }, {
                     data: "kategori_kode",
                     className: "",
@@ -76,7 +89,18 @@
                     render: function(data) {
                         return data;
                     }
+                    
+                }, {
+                    data: "AJAX",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return data;
+                    }
+                    
                 }],
+                
                 language: {
                     processing: '<div class="spinner-border text-primary" role="status"></div>',
                     search: "",
