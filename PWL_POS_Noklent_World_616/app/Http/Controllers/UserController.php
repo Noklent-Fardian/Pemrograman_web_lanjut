@@ -48,7 +48,7 @@ class UserController extends Controller
                 return $btn;
             })
             ->addColumn('AJAX', function ($user) {
-                $btn = '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn = '<button onclick="modalAction(\'' . url('/user/show_ajax/' . $user->user_id) . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
                 return $btn;
@@ -283,4 +283,9 @@ class UserController extends Controller
         }
         return redirect('/');
     }
+    public function showAjax($id)
+{
+    $user = UserModel::with('level')->find($id);
+    return view('user.show_ajax', compact('user'));
+}
 }

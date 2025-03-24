@@ -1,8 +1,7 @@
-@empty($user)
+@empty($barang)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header"
-                style="background: linear-gradient(-45deg, #ff7675, #d63031); background-size: 400% 400%; animation: gradient 15s ease infinite;">
+            <div class="modal-header" style="background: linear-gradient(-45deg, #ff7675, #d63031); background-size: 400% 400%; animation: gradient 15s ease infinite;">
                 <h5 class="modal-title text-white font-weight-bold">
                     <i class="fas fa-exclamation-triangle mr-2"></i> Kesalahan
                 </h5>
@@ -16,28 +15,27 @@
                         <i class="fas fa-ban fa-2x mr-3"></i>
                         <div>
                             <h5 class="mb-1">Data Tidak Ditemukan</h5>
-                            <p class="mb-0">Maaf, data pengguna yang Anda cari tidak ada dalam database.</p>
+                            <p class="mb-0">Maaf, data barang yang Anda cari tidak ada dalam database.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="{{ url('/user') }}" class="btn btn-back btn-outline-secondary">
+                <button type="button" class="btn btn-back btn-outline-secondary" data-dismiss="modal">
                     <i class="fas fa-arrow-left mr-2"></i> Kembali
-                </a>
+                </button>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/user/' . $user->user_id . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/barang/' . $barang->barang_id . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header"
-                    style="background: linear-gradient(-45deg, #f39c12, #e74c3c); background-size: 400% 400%; animation: gradient 15s ease infinite;">
+                <div class="modal-header" style="background: linear-gradient(-45deg, #f39c12, #e74c3c); background-size: 400% 400%; animation: gradient 15s ease infinite;">
                     <h5 class="modal-title text-white font-weight-bold">
-                        <i class="fas fa-trash-alt mr-2"></i> Hapus Data User
+                        <i class="fas fa-trash-alt mr-2"></i> Hapus Data Barang
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -49,35 +47,35 @@
                             <i class="fas fa-exclamation-triangle fa-2x mr-3"></i>
                             <div>
                                 <h5 class="mb-1">Konfirmasi Penghapusan</h5>
-                                <p class="mb-0">Apakah Anda yakin ingin menghapus data pengguna berikut?</p>
+                                <p class="mb-0">Apakah Anda yakin ingin menghapus data barang berikut?</p>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="user-detail-container mt-4 animate__animated animate__fadeIn">
                         <div class="user-info-card">
                             <div class="user-info-item">
                                 <div class="info-label">
-                                    <i class="fas fa-layer-group text-info"></i>
-                                    <span>Level Pengguna</span>
+                                    <i class="fas fa-barcode text-primary"></i>
+                                    <span>Kode Barang</span>
+                                </div>
+                                <div class="info-value">{{ $barang->barang_kode }}</div>
+                            </div>
+                            <div class="user-info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-tag text-info"></i>
+                                    <span>Nama Barang</span>
+                                </div>
+                                <div class="info-value">{{ $barang->barang_nama }}</div>
+                            </div>
+                            <div class="user-info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-layer-group text-success"></i>
+                                    <span>Kategori</span>
                                 </div>
                                 <div class="info-value">
-                                    <span class="badge badge-info">{{ $user->level->level_nama }}</span>
+                                    <span class="badge badge-info">{{ $barang->kategori->kategori_nama }}</span>
                                 </div>
-                            </div>
-                            <div class="user-info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-user-tag text-primary"></i>
-                                    <span>Username</span>
-                                </div>
-                                <div class="info-value">{{ $user->username }}</div>
-                            </div>
-                            <div class="user-info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-user text-success"></i>
-                                    <span>Nama Lengkap</span>
-                                </div>
-                                <div class="info-value">{{ $user->nama }}</div>
                             </div>
                         </div>
                     </div>
@@ -100,7 +98,7 @@
                 'opacity': 0,
                 'transform': 'translateY(20px)'
             });
-
+            
             setTimeout(function() {
                 $('.user-detail-container').css({
                     'opacity': 1,
@@ -110,7 +108,6 @@
             }, 300);
 
             $("#form-delete").validate({
-                rules: {},
                 submitHandler: function(form) {
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
@@ -137,36 +134,19 @@
                                             timer: 1500,
                                             showConfirmButton: false
                                         });
-                                        dataUser.ajax.reload();
+                                        dataBarang.ajax.reload();
                                     } else {
-                                        $('.error-text').text('');
-                                        $.each(response.msgField, function(prefix,
-                                            val) {
-                                            $('#error-' + prefix).text(val[
-                                                0]);
-                                        });
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Terjadi Kesalahan',
                                             text: response.message
                                         });
                                     }
-                                },
+                                }
                             });
                         }
                     });
                     return false;
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
                 }
             });
         });

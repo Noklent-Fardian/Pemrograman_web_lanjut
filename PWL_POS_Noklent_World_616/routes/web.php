@@ -43,6 +43,7 @@ Route::prefix('user')->group(function () {
     Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
+    Route::get('/show_ajax/{id}', [UserController::class, 'showAjax']);
     
 
 });
@@ -56,6 +57,13 @@ Route::prefix('barang')->group(function () {
     Route::get('/edit/{id}', [BarangController::class, 'edit']);
     Route::put('/update/{id}', [BarangController::class, 'update']);
     Route::delete('/delete/{id}', [BarangController::class, 'delete']);
+    Route::get('/show_ajax/{id}', [BarangController::class, 'showAjax']);
+    Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
+    Route::post('/ajax', [BarangController::class, 'store_ajax']);
+    Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
 });
 Route::prefix('level')->group(function () {
     

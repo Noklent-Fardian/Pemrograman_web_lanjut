@@ -18,8 +18,8 @@
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
                             <select class="form-control" id="kategori_id" name="kategori_id">
-                                <option value="">- Semua Kategori -</option>
-                                @foreach ($kategoris as $item)
+                                <option value="">- Semua Kategori</option>
+                                @foreach ($kategori as $item)
                                     <option value="{{ $item->kategori_id }}">{{ $item->kategori_nama }}</option>
                                 @endforeach
                             </select>
@@ -32,6 +32,8 @@
                 <a href="{{ url('barang/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Barang Baru
                 </a>
+                <button onclick="modalAction('{{ url('/barang/create_ajax') }}')"
+                    class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari barang...">
@@ -42,13 +44,14 @@
                 <table class="table table-hover table-striped" id="table_barang">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-top-0">ID</th>
+                            <th class="border-top-0">#</th>
                             <th class="border-top-0">Kode</th>
                             <th class="border-top-0">Nama Barang</th>
                             <th class="border-top-0">Kategori</th>
                             <th class="border-top-0">Harga Beli</th>
                             <th class="border-top-0">Harga Jual</th>
                             <th class="border-top-0 text-center">Aksi</th>
+                            <th class="border-top-0 text-center">AJAX</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,13 +61,22 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data backdrop="static"
+        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
 @push('js')
     <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+        
+        var dataBarang;
         $(document).ready(function() {
             // Initialize DataTable
-            var dataBarang = $('#table_barang').DataTable({
+            dataBarang = $('#table_barang').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
@@ -76,7 +88,7 @@
                     }
                 },
                 columns: [{
-                    data: "barang_id",
+                    data: "DT_RowIndex",
                     className: "text-center",
                     orderable: false,
                     searchable: false
@@ -99,17 +111,31 @@
                         return '<span class="badge badge-info">' + data + '</span>';
                     }
                 }, {
-                    data: "harga_beli_formatted",
-                    className: "",
-                    orderable: false,
-                    searchable: false
+                    data: "harga_beli",
+                    className: "text-right",
+                    orderable: true,
+                    searchable: false,
+                    render: function(data) {
+                        return 'Rp ' + new Intl.NumberFormat('id-ID').format(data);
+                    }
                 }, {
-                    data: "harga_jual_formatted",
-                    className: "",
-                    orderable: false,
-                    searchable: false
+                    data: "harga_jual",
+                    className: "text-right",
+                    orderable: true,
+                    searchable: false,
+                    render: function(data) {
+                        return 'Rp ' + new Intl.NumberFormat('id-ID').format(data);
+                    }
                 }, {
                     data: "aksi",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return data;
+                    }
+                }, {
+                    data: "AJAX",
                     className: "text-center",
                     orderable: false,
                     searchable: false,

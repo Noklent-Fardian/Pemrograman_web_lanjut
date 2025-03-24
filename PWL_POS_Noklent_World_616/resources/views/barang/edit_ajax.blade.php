@@ -1,4 +1,4 @@
-@empty($user)
+@empty($barang)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background: linear-gradient(-45deg, #ff7675, #d63031); background-size: 400% 400%; animation: gradient 15s ease infinite;">
@@ -15,7 +15,7 @@
                         <i class="fas fa-ban fa-2x mr-3"></i>
                         <div>
                             <h5 class="mb-1">Data Tidak Ditemukan</h5>
-                            <p class="mb-0">Maaf, data pengguna yang Anda cari tidak ada dalam database.</p>
+                            <p class="mb-0">Maaf, data barang yang Anda cari tidak ada dalam database.</p>
                         </div>
                     </div>
                 </div>
@@ -28,14 +28,14 @@
         </div>
     </div>
 @else
-    <form action="{{ url('/user/' . $user->user_id . '/update_ajax') }}" method="POST" id="form-edit">
+    <form action="{{ url('/barang/' . $barang->barang_id . '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background: linear-gradient(-45deg, #4a69bd, #6a89cc, #1e3799, #0c2461); background-size: 400% 400%; animation: gradient 15s ease infinite;">
                     <h5 class="modal-title text-white font-weight-bold">
-                        <i class="fas fa-user-edit mr-2"></i> Edit Data User
+                        <i class="fas fa-edit mr-2"></i> Edit Data Barang
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -43,62 +43,68 @@
                 </div>
                 <div class="modal-body p-4">
                     <div class="form-group">
-                        <label class="font-weight-bold">Level Pengguna</label>
+                        <label class="font-weight-bold">Kategori Barang</label>
                         <div class="input-group input-group-custom">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary text-white"><i class="fas fa-layer-group"></i></span>
                             </div>
-                            <select name="level_id" id="level_id" class="form-control" required>
-                                <option value="">-- Pilih Level --</option>
-                                @foreach ($level as $l)
-                                    <option value="{{ $l->level_id }}" {{ $l->level_id == $user->level_id ? 'selected' : '' }}>
-                                        {{ $l->level_nama }}</option>
+                            <select name="kategori_id" id="kategori_id" class="form-control" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($kategori as $k)
+                                    <option value="{{ $k->kategori_id }}" {{ $k->kategori_id == $barang->kategori_id ? 'selected' : '' }}>
+                                        {{ $k->kategori_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <small id="error-level_id" class="error-text form-text text-danger"></small>
+                        <small id="error-kategori_id" class="error-text form-text text-danger"></small>
                     </div>
                     
                     <div class="form-group">
-                        <label class="font-weight-bold">Username</label>
+                        <label class="font-weight-bold">Kode Barang</label>
                         <div class="input-group input-group-custom">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-info text-white"><i class="fas fa-user-tag"></i></span>
+                                <span class="input-group-text bg-info text-white"><i class="fas fa-barcode"></i></span>
                             </div>
-                            <input value="{{ $user->username }}" type="text" name="username" id="username" 
-                                class="form-control" placeholder="Masukkan username" required>
+                            <input value="{{ $barang->barang_kode }}" type="text" name="barang_kode" id="barang_kode" 
+                                class="form-control" required placeholder="Masukkan kode barang">
                         </div>
-                        <small id="error-username" class="error-text form-text text-danger"></small>
+                        <small id="error-barang_kode" class="error-text form-text text-danger"></small>
                     </div>
                     
                     <div class="form-group">
-                        <label class="font-weight-bold">Nama Lengkap</label>
+                        <label class="font-weight-bold">Nama Barang</label>
                         <div class="input-group input-group-custom">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-success text-white"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text bg-success text-white"><i class="fas fa-box"></i></span>
                             </div>
-                            <input value="{{ $user->nama }}" type="text" name="nama" id="nama" class="form-control"
-                                placeholder="Masukkan nama lengkap" required>
+                            <input value="{{ $barang->barang_nama }}" type="text" name="barang_nama" id="barang_nama" 
+                                class="form-control" required placeholder="Masukkan nama barang">
                         </div>
-                        <small id="error-nama" class="error-text form-text text-danger"></small>
+                        <small id="error-barang_nama" class="error-text form-text text-danger"></small>
                     </div>
                     
                     <div class="form-group">
-                        <label class="font-weight-bold">Password</label>
+                        <label class="font-weight-bold">Harga Beli</label>
                         <div class="input-group input-group-custom">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-danger text-white"><i class="fas fa-lock"></i></span>
+                                <span class="input-group-text bg-danger text-white"><i class="fas fa-shopping-cart"></i></span>
                             </div>
-                            <input type="password" name="password" id="password" class="form-control"
-                                placeholder="Masukkan password baru (opsional)">
-                            <div class="input-group-append">
-                                <button class="btn btn-light border-0" type="button" id="togglePassword">
-                                    <i class="fas fa-eye-slash"></i>
-                                </button>
-                            </div>
+                            <input value="{{ $barang->harga_beli }}" type="number" name="harga_beli" id="harga_beli" 
+                                class="form-control" required placeholder="Masukkan harga beli">
                         </div>
-                        <small class="form-text text-muted"><i class="fas fa-info-circle mr-1"></i> Abaikan jika tidak ingin mengubah password</small>
-                        <small id="error-password" class="error-text form-text text-danger"></small>
+                        <small id="error-harga_beli" class="error-text form-text text-danger"></small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="font-weight-bold">Harga Jual</label>
+                        <div class="input-group input-group-custom">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-warning text-white"><i class="fas fa-money-bill-wave"></i></span>
+                            </div>
+                            <input value="{{ $barang->harga_jual }}" type="number" name="harga_jual" id="harga_jual" 
+                                class="form-control" required placeholder="Masukkan harga jual">
+                        </div>
+                        <small id="error-harga_jual" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -129,61 +135,67 @@
                     });
                 }, 100 * (i + 1));
             });
-            
-            // Toggle password visibility
-            $('#togglePassword').click(function() {
-                const passwordField = $('#password');
-                const passwordFieldType = passwordField.attr('type');
-                const toggleIcon = $(this).find('i');
 
-                if (passwordFieldType === 'password') {
-                    passwordField.attr('type', 'text');
-                    toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
-                } else {
-                    passwordField.attr('type', 'password');
-                    toggleIcon.removeClass('fa-eye').addClass('fa-eye-slash');
-                }
+            // // Calculate suggested selling price based on purchase price when editing
+            // $('#harga_beli').on('input', function() {
+            //     const hargaBeli = parseFloat($(this).val()) || 0;
+            //     // Only update if user hasn't manually changed the selling price
+            //     if (!$('#harga_jual').data('manually-changed')) {
+            //         const hargaJual = Math.ceil(hargaBeli * 1.2); // 20% markup
+            //         $('#harga_jual').val(hargaJual);
+            //     }
+            // });
+
+            // Mark when user manually changes the selling price
+            $('#harga_jual').on('input', function() {
+                $(this).data('manually-changed', true);
             });
 
             $("#form-edit").validate({
                 rules: {
-                    level_id: {
-                        required: true,
-                        number: true
+                    kategori_id: {
+                        required: true
                     },
-                    username: {
+                    barang_kode: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 20
+                        maxlength: 10
                     },
-                    nama: {
+                    barang_nama: {
                         required: true,
-                        minlength: 3,
                         maxlength: 100
                     },
-                    password: {
-                        minlength: 6,
-                        maxlength: 20
+                    harga_beli: {
+                        required: true,
+                        number: true,
+                        min: 0
+                    },
+                    harga_jual: {
+                        required: true,
+                        number: true,
+                        min: 0
                     }
                 },
                 messages: {
-                    level_id: {
-                        required: "Level pengguna harus dipilih",
-                        number: "Format level tidak valid"
+                    kategori_id: {
+                        required: "Kategori barang harus dipilih"
                     },
-                    username: {
-                        required: "Username tidak boleh kosong",
-                        minlength: "Username minimal 3 karakter",
-                        maxlength: "Username maksimal 20 karakter"
+                    barang_kode: {
+                        required: "Kode barang tidak boleh kosong",
+                        maxlength: "Kode barang maksimal 10 karakter"
                     },
-                    nama: {
-                        required: "Nama tidak boleh kosong",
-                        minlength: "Nama minimal 3 karakter",
-                        maxlength: "Nama maksimal 100 karakter"
+                    barang_nama: {
+                        required: "Nama barang tidak boleh kosong",
+                        maxlength: "Nama barang maksimal 100 karakter"
                     },
-                    password: {
-                        minlength: "Password minimal 6 karakter",
-                        maxlength: "Password maksimal 20 karakter"
+                    harga_beli: {
+                        required: "Harga beli tidak boleh kosong",
+                        number: "Harga beli harus berupa angka",
+                        min: "Harga beli tidak boleh negatif"
+                    },
+                    harga_jual: {
+                        required: "Harga jual tidak boleh kosong",
+                        number: "Harga jual harus berupa angka",
+                        min: "Harga jual tidak boleh negatif"
                     }
                 },
                 submitHandler: function(form) {
@@ -201,7 +213,7 @@
                                     timer: 1500,
                                     showConfirmButton: false
                                 });
-                                dataUser.ajax.reload();
+                                dataBarang.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
