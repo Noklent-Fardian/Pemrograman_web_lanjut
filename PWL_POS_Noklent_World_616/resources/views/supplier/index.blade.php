@@ -1,4 +1,3 @@
-
 @extends('layouts.template')
 
 @section('content')
@@ -13,10 +12,13 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
+            
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <a href="{{ url('supplier/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Supplier Baru
                 </a>
+                <button onclick="modalAction('{{ url('/supplier/create_ajax') }}')"
+                    class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari supplier...">
@@ -27,13 +29,13 @@
                 <table class="table table-hover table-striped" id="table_supplier">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-top-0">No</th>
+                            <th class="border-top-0">ID</th>
                             <th class="border-top-0">Kode</th>
-                            <th class="border-top-0">Nama Supplier</th>
+                            <th class="border-top-0">Nama</th>
                             <th class="border-top-0">Kontak</th>
-                            <th class="border-top-0">Email</th>
                             <th class="border-top-0">Status</th>
                             <th class="border-top-0 text-center">Aksi</th>
+                            <th class="border-top-0 text-center">AJAX</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,25 +45,34 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data backdrop="static"
+        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
 @push('js')
     <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+        var dataSupplier;
         $(document).ready(function() {
             // Initialize DataTable
-            var dataSupplier = $('#table_supplier').DataTable({
+            dataSupplier = $('#table_supplier').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
                     "url": "{{ url('supplier/list') }}",
                     "dataType": "json",
-                    "type": "GET"
+                    "type": "GET",
                 },
+                
                 columns: [{
-                    data: "DT_RowIndex",
+                    data: "supplier_id",
                     className: "text-center",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: true
                 }, {
                     data: "supplier_kode",
                     className: "",
@@ -75,21 +86,18 @@
                 }, {
                     data: "supplier_contact",
                     className: "",
-                    orderable: false,
+                    orderable: true,
                     searchable: true
                 }, {
-                    data: "supplier_email",
-                    className: "",
-                    orderable: false,
-                    searchable: true,
-                    render: function(data) {
-                        return data ? data : '<i class="text-muted">Tidak ada</i>';
-                    }
-                }, {
-                    data: "status_badge",
+                    data: "supplier_aktif",
                     className: "text-center",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: false,
+                    render: function(data) {
+                        return data == 1 ? 
+                            '<span class="badge badge-success">Aktif</span>' : 
+                            '<span class="badge badge-danger">Tidak Aktif</span>';
+                    }
                 }, {
                     data: "aksi",
                     className: "text-center",
@@ -98,7 +106,16 @@
                     render: function(data) {
                         return data;
                     }
+                }, {
+                    data: "AJAX",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return data;
+                    }
                 }],
+                
                 language: {
                     processing: '<div class="spinner-border text-primary" role="status"></div>',
                     search: "",
