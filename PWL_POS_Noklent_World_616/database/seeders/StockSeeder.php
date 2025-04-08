@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Barang;
+use App\Models\Supplier;
+use App\Models\UserModel;
+use App\Models\Stock;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class StockSeeder extends Seeder
 {
@@ -13,66 +17,22 @@ class StockSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('t_stock')->insert([
-            'barang_id' => 1,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 100,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 2,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 50,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 3,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 200,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 4,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 300,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 5,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 150,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 6,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 250,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 7,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 100,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 8,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 50,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 9,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 200,
-        ]);
-        DB::table('t_stock')->insert([
-            'barang_id' => 10,
-            'user_id' => 1,
-            'stok_tanggal_masuk' => '2021-01-01',
-            'stok_jumlah' => 300,
-        ]);
+        $faker = Faker::create();
         
+        
+        $barangIds = Barang::pluck('barang_id')->toArray();
+        $userIds = UserModel::pluck('user_id')->toArray();
+        $supplierIds = Supplier::pluck('supplier_id')->toArray();
+        
+       
+        for ($i = 0; $i < 20; $i++) {
+            Stock::create([
+                'barang_id' => $faker->randomElement($barangIds),
+                'user_id' => $faker->numberBetween(1, 3),
+                'supplier_id' => $faker->randomElement($supplierIds),
+                'stok_tanggal_masuk' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
+                'stok_jumlah' => $faker->numberBetween(10, 500),
+            ]);
+        }
     }
 }

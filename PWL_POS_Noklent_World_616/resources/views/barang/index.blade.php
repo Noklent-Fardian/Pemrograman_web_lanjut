@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card shadow-sm rounded-lg overflow-hidden">
-        <div class="card-header bg-gradient-primary text-white">
+        <div class="card-header text-white">
             <h3 class="card-title mb-0 font-weight-bold">{{ $page->title }}</h3>
         </div>
         <div class="card-body">

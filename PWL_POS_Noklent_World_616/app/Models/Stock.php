@@ -16,6 +16,7 @@ class Stock extends Model
     protected $fillable = [
         'barang_id',
         'user_id',
+        'supplier_id',
         'stok_tanggal_masuk',
         'stok_jumlah'
     ];
@@ -35,4 +36,12 @@ class Stock extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+    /**
+     * Get the supplier associated with the stock.
+     */
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
+    }
+    
 }

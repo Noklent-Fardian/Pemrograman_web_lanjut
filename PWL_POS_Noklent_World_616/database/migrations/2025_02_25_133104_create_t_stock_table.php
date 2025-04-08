@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->foreign('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
             $table->foreign('user_id')->references('user_id')->on('m_user')->onDelete('cascade');
+
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_stock');
+        Schema::dropIfExists('t_stock');
     }
 };

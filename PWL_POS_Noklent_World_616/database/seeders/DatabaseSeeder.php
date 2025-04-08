@@ -16,11 +16,12 @@ class DatabaseSeeder extends Seeder
             LevelSeeder::class,
             KategoriSeeder::class,
             BarangSeeder::class,
+            SupplierSeeder::class,
             UserSeeder::class,
             StockSeeder::class,
             PenjualanSeeder::class,
             PenjualanDetaiSeeder::class,
-            SupplierSeeder::class,
+           
         ]);
     }
 }
