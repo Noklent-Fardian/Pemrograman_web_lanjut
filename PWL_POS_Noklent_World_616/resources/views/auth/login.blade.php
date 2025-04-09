@@ -4,80 +4,91 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Pengguna</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login PWL POS</title>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/loginPage.css') }}">
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
-            <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <!-- Topographic Background -->
+            <div class="topo-pattern"></div>
+
+            <!-- Circle Shapes -->
+            <div class="shape circle circle-1"></div>
+            <div class="shape circle circle-2"></div>
+            <div class="shape circle circle-3"></div>
+
+            <!-- Ring Shapes -->
+            <div class="shape ring ring-1"></div>
+            <div class="shape ring ring-2"></div>
+
+            <!-- Polygon Shapes -->
+            <div class="shape triangle triangle-1"></div>
+            <div class="shape square square-1"></div>
+
+
+
+            <!-- Glass Effect -->
+            <div class="glass-effect glass-1"></div>
+
+            <div class="welcome-content">
+                <h1>Selamat Datang!</h1>
+                <p>Masuk ke POS-PWL Noklent untuk membantu manajemen transaksi penjualan anda secara efisien.</p>
+            </div>
+        </div>
+
+        <!-- Login Section -->
+        <div class="login-section">
+            <div class="login-box">
+                <h2>Login</h2>
                 <form action="{{ url('login') }}" method="POST" id="form-login">
                     @csrf
-                    <div class="input-group mb-3">
-                        <input type="text" id="username" name="username" class="form-control"
-                            placeholder="Username">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                        <small id="error-username" class="error-text text-danger"></small>
+                    <div class="input-group">
+                        <input type="text" id="username" name="username" placeholder="Username or email" required>
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                        <small id="error-username" class="error-text"></small>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        <small id="error-password" class="error-text text-danger"></small>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <small id="error-password" class="error-text"></small>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember"><label for="remember">Remember Me</label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" name="remember">
+                            <span>Remember me</span>
+                        </label>
                     </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Log In</span>
+                    </button>
                 </form>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -87,6 +98,12 @@
         });
 
         $(document).ready(function() {
+            // Custom validation styling
+            $.validator.setDefaults({
+                errorClass: 'error',
+                errorElement: 'span'
+            });
+
             $("#form-login").validate({
                 rules: {
                     username: {
@@ -100,45 +117,104 @@
                         maxlength: 20
                     }
                 },
-                submitHandler: function(form) { // ketika valid, maka bagian yg akan dijalankan 
+                messages: {
+                    username: {
+                        required: "Username diperlukan",
+                        minlength: "Username minimal 4 karakter",
+                        maxlength: "Username maksimal 20 karakter"
+                    },
+                    password: {
+                        required: "Password diperlukan",
+                        minlength: "Password minimal 4 karakter",
+                        maxlength: "Password maksimal 20 karakter"
+                    }
+                },
+                submitHandler: function(form) {
+                    // Clear any previous error messages
+                    $('.error-text').text('');
+
+                    // Add loading state to button
+                    const $btn = $(form).find('.btn-primary');
+                    const originalText = $btn.html();
+                    $btn.html('<i class="fas fa-circle-notch fa-spin"></i> Processing...');
+                    $btn.prop('disabled', true);
+
                     $.ajax({
                         url: form.action,
                         type: form.method,
                         data: $(form).serialize(),
                         success: function(response) {
-                            if (response.status) { // jika sukses 
+                            if (response.status) {
+                                // Success case
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Berhasil',
+                                    title: 'Berhasil Login!',
                                     text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 750,
+                                    timerProgressBar: true,
+                                    allowOutsideClick: false,
+                                    heightAuto: false,
+                                    position: 'center',
+                                    customClass: {
+                                        container: 'swal-container-fixed'
+                                    },
+                                    didOpen: () => {
+                                        $btn.html('<i class="fas fa-check"></i> Success!');
+                                        $btn.css('background', 'linear-gradient(135deg, #28a745, #20c997)');
+                                        Swal.showLoading();
+                                    }
                                 }).then(function() {
+                                    // Redirect with slight delay for better UX
                                     window.location = response.redirect;
                                 });
-                            } else { // jika error 
+                            } else {
+                                // Error case
+                                $btn.html(originalText);
+                                $btn.prop('disabled', false);
+                                
+                                // Display field-specific errors
                                 $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
-                                    $('#error-' + prefix).text(val[0]);
-                                });
+                                if (response.msgField) {
+                                    $.each(response.msgField, function(prefix, val) {
+                                        $('#error-' + prefix).text(val[0]);
+                                    });
+                                }
+                                
+                                // Show error popup
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Terjadi Kesalahan',
-                                    text: response.message
+                                    title: 'Login Gagal',
+                                    text: response.message,
+                                    confirmButtonText: 'oke',
+                                    confirmButtonColor: '#6a11cb',
+                                    heightAuto: false,
+                                    position: 'center',
+                                    customClass: {
+                                        container: 'swal-container-fixed'
+                                    },
+                                    showClass: {
+                                        popup: 'animate__animated animate__fadeInDown'
+                                    }
                                 });
                             }
                         }
                     });
                     return false;
                 },
-                errorElement: 'span',
                 errorPlacement: function(error, element) {
                     error.addClass('invalid-feedback');
-                    element.closest('.input-group').append(error);
+                    error.insertAfter(element);
                 },
                 highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
+
+                    $(element).addClass('error');
+                    $(element).closest('.input-group').addClass('has-error');
                 },
                 unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
+
+                    $(element).removeClass('error');
+                    $(element).closest('.input-group').removeClass('has-error');
                 }
             });
         });

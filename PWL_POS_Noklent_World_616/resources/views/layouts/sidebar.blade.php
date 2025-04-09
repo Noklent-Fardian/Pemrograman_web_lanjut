@@ -64,6 +64,31 @@
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            <li class="nav-item mt-4">
+                <a href="javascript:void(0)" onclick="confirmLogout()" class="nav-link bg-danger text-white">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
+<script>
+    function confirmLogout() {
+        Swal.fire({
+            title: 'Konfirmasi Logout',
+            text: 'Apakah Anda yakin ingin logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Ya, Logout!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ url('/logout') }}";
+            }
+        });
+    }
+</script>
