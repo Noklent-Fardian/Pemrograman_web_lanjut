@@ -34,7 +34,7 @@ class Stock extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     }
     /**
      * Get the supplier associated with the stock.

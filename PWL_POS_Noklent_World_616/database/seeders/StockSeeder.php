@@ -28,7 +28,7 @@ class StockSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             Stock::create([
                 'barang_id' => $faker->randomElement($barangIds),
-                'user_id' => $faker->numberBetween(1, 3),
+                'user_id' => $faker->randomElement($userIds),
                 'supplier_id' => $faker->randomElement($supplierIds),
                 'stok_tanggal_masuk' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
                 'stok_jumlah' => $faker->numberBetween(10, 500),
