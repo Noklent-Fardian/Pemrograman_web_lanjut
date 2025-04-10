@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login PWL POS</title>
+    <title>Register PWL POS</title>
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <!-- Font Awesome -->
@@ -14,8 +14,15 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/loginPage.css') }}">
-</head>
-
+    <style>
+        .login-box {
+            max-height: 550px;
+          
+        }
+        .container {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,45 +45,48 @@
             <div class="shape triangle triangle-1"></div>
             <div class="shape square square-1"></div>
 
-
-
             <!-- Glass Effect -->
             <div class="glass-effect glass-1"></div>
 
             <div class="welcome-content">
-                <h1>Selamat Datang!</h1>
-                <p>Masuk ke POS-PWL Noklent untuk membantu manajemen transaksi penjualan anda secara efisien.</p>
+                <h1>Buat Akun Baru!</h1>
+                <p>Daftarkan diri Anda untuk mulai berbelanja di toko kami</p>
             </div>
         </div>
 
-        <!-- Login Section -->
+        <!-- Register Section -->
         <div class="login-section">
             <div class="login-box">
-                <h2>Login</h2>
-                <form action="{{ url('login') }}" method="POST" id="form-login">
+                <h2>Register</h2>
+                <form action="{{ url('register') }}" method="POST" id="form-register">
                     @csrf
                     <div class="input-group">
-                        <input type="text" id="username" name="username" placeholder="Username or email" required>
+                        <input type="text" id="username" name="username" placeholder="Username" required>
                         <span class="input-icon"><i class="fas fa-user"></i></span>
                         <small id="error-username" class="error-text"></small>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required>
+                        <span class="input-icon"><i class="fas fa-id-card"></i></span>
+                        <small id="error-nama" class="error-text"></small>
                     </div>
                     <div class="input-group">
                         <input type="password" id="password" name="password" placeholder="Password" required>
                         <span class="input-icon"><i class="fas fa-lock"></i></span>
                         <small id="error-password" class="error-text"></small>
                     </div>
-                    <div class="form-options">
-                        <label>
-                            <input type="checkbox" name="remember">
-                            <span>Remember me</span>
-                        </label>
+                    <div class="input-group">
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <small id="error-password_confirmation" class="error-text"></small>
                     </div>
                     <button type="submit" class="btn-primary">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Log In</span>
+                        <i class="fas fa-user-plus"></i>
+                        <span>Daftar</span>
                     </button>
+
                     <div class="mt-3 text-center">
-                        <p>Belum punya akun? <a href="{{ url('register') }}">Daftar sekarang</a></p>
+                        <p>Sudah punya akun? <a href="{{ url('login') }}">Login</a></p>
                     </div>
                 </form>
             </div>
@@ -90,8 +100,6 @@
     <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-    <!-- SweetAlert2 -->
-    <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -107,17 +115,26 @@
                 errorElement: 'span'
             });
 
-            $("#form-login").validate({
+            $("#form-register").validate({
                 rules: {
                     username: {
                         required: true,
                         minlength: 4,
                         maxlength: 20
                     },
+                    nama: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 100
+                    },
                     password: {
                         required: true,
                         minlength: 4,
                         maxlength: 20
+                    },
+                    password_confirmation: {
+                        required: true,
+                        equalTo: "#password"
                     }
                 },
                 messages: {
@@ -126,17 +143,26 @@
                         minlength: "Username minimal 4 karakter",
                         maxlength: "Username maksimal 20 karakter"
                     },
+                    nama: {
+                        required: "Nama lengkap diperlukan",
+                        minlength: "Nama minimal 3 karakter",
+                        maxlength: "Nama maksimal 100 karakter"
+                    },
                     password: {
                         required: "Password diperlukan",
                         minlength: "Password minimal 4 karakter",
                         maxlength: "Password maksimal 20 karakter"
+                    },
+                    password_confirmation: {
+                        required: "Konfirmasi password diperlukan",
+                        equalTo: "Konfirmasi password tidak cocok"
                     }
                 },
                 submitHandler: function(form) {
-                    // Clear any previous error messages
+                 
                     $('.error-text').text('');
 
-                    // Add loading state to button
+                    
                     const $btn = $(form).find('.btn-primary');
                     const originalText = $btn.html();
                     $btn.html('<i class="fas fa-circle-notch fa-spin"></i> Processing...');
@@ -151,10 +177,10 @@
                                 // Success case
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Berhasil Login!',
+                                    title: 'Registrasi Berhasil!',
                                     text: response.message,
                                     showConfirmButton: false,
-                                    timer: 750,
+                                    timer: 1000,
                                     timerProgressBar: true,
                                     allowOutsideClick: false,
                                     heightAuto: false,
@@ -187,18 +213,12 @@
                                 // Show error popup
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Login Gagal',
-                                    text: response.message,
-                                    confirmButtonText: 'oke',
+                                    title: 'Registrasi Gagal',
+                                    text: response.message || 'Terjadi kesalahan pada saat registrasi',
+                                    confirmButtonText: 'OK',
                                     confirmButtonColor: '#6a11cb',
                                     heightAuto: false,
-                                    position: 'center',
-                                    customClass: {
-                                        container: 'swal-container-fixed'
-                                    },
-                                    showClass: {
-                                        popup: 'animate__animated animate__fadeInDown'
-                                    }
+                                    position: 'center'
                                 });
                             }
                         }
@@ -210,12 +230,10 @@
                     error.insertAfter(element);
                 },
                 highlight: function(element, errorClass, validClass) {
-
                     $(element).addClass('error');
                     $(element).closest('.input-group').addClass('has-error');
                 },
                 unhighlight: function(element, errorClass, validClass) {
-
                     $(element).removeClass('error');
                     $(element).closest('.input-group').removeClass('has-error');
                 }

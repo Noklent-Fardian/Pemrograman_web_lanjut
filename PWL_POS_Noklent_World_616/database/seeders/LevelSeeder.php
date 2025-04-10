@@ -26,5 +26,9 @@ class LevelSeeder extends Seeder
             'level_kode' => 'KAS',
             'level_nama' => 'Kasir',
         ]);
+        DB::table('m_level')->insert([
+            'level_kode' => 'CUST',
+            'level_nama' => 'Customer',
+        ]);
     }
 }
