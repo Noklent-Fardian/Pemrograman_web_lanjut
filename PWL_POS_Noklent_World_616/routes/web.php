@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () { //middleware auth digunakan unt
     Route::get('/kategori', [KategoriController::class, 'index']);
 
 
-    Route::prefix('user')->middleware('authorize:ADM')->group(function () {
+    Route::prefix('user')->middleware(['authorize:ADM,MNG'])->group(function () {
         Route::get('/', [UserController::class, 'index']);
         Route::get('/list', [UserController::class, 'list']);
         Route::get('/create', [UserController::class, 'create']);
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () { //middleware auth digunakan unt
         Route::get('/show_ajax/{id}', [UserController::class, 'showAjax']);
     });
 });
-Route::prefix('barang')->group(function () {
+Route::prefix('barang')->middleware(['authorize:ADM,MNG'])->group(function () {
     Route::get('/', [BarangController::class, 'index']);
     Route::get('/list', [BarangController::class, 'list']);
     Route::get('/create', [BarangController::class, 'create']);
@@ -74,7 +74,7 @@ Route::prefix('barang')->group(function () {
     Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
 });
-Route::prefix('level')->middleware('authorize:ADM')->group(function () {
+Route::prefix('level')->middleware(['authorize:ADM,MNG'])->group(function () {
 
     Route::get('/', [LevelController::class, 'index']);
     Route::get('/list', [LevelController::class, 'list']);

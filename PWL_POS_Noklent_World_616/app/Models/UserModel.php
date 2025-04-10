@@ -33,4 +33,11 @@ class UserModel extends Authenticatable
     {
         return $this->belongsTo(Level::class, 'level_id', 'level_id');
     }
+      /**
+     * Get the level code.
+     */
+    public function getLevelCode()
+    {
+        return $this->level->level_kode;
+    }
 }
