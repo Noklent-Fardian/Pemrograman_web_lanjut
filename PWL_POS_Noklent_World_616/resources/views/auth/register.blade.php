@@ -50,6 +50,7 @@
             <div class="glass-effect glass-1"></div>
 
             <div class="welcome-content">
+                <img src="{{ asset('img/logo_clean.png') }}" alt="Logo" class="logo">
                 <h1>Buat Akun Baru!</h1>
                 <p>Daftarkan diri Anda untuk mulai berbelanja di toko kami</p>
             </div>
