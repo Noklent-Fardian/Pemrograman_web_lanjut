@@ -10,13 +10,14 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\LandingController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
+Route::get('/', [LandingController::class, 'index']);
 Route::pattern('id', '[0-9]+');
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
@@ -26,8 +27,8 @@ Route::post('register', [AuthController::class, 'postRegister'])->name('postRegi
 
 
 Route::middleware(['auth'])->group(function () {
-    // Dashboard - accessible to all authenticated users
-    Route::get('/', [WelcomeController::class, 'index']);
+   
+    Route::get('/dashboard', [WelcomeController::class, 'index']);
     
     // ADMIN ONLY ROUTES
     // User and Level Management - Admin only
