@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/loginPage.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
 </head>
 
 </head>

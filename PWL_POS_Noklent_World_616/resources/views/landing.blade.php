@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
 </head>
 <body>
     <section class="hero">
@@ -18,7 +19,7 @@
         <div class="content">
             <div class="text-content">
                 <h1>PWL <span>Point of Sale</span> Nokurento</h1>
-                <p>Effortlessly manage your inventory, track sales, and streamline your business operations with our comprehensive POS solution.</p>
+              <p>Kelola Usaha anda dengan sistem Point Of Sale dan nikmati segala kemudahan yang diberikan.</p>
                 
                 <div class="features">
                     <div class="feature-item">
