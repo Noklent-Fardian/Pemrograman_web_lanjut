@@ -17,6 +17,7 @@ use App\Http\Controllers\LandingController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [LandingController::class, 'index']);
 Route::pattern('id', '[0-9]+');
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -27,9 +28,9 @@ Route::post('register', [AuthController::class, 'postRegister'])->name('postRegi
 
 
 Route::middleware(['auth'])->group(function () {
-   
+
     Route::get('/dashboard', [WelcomeController::class, 'index']);
-    
+
     // ADMIN ONLY ROUTES
     // User and Level Management - Admin only
     Route::prefix('user')->middleware(['authorize:ADM'])->group(function () {
@@ -70,8 +71,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
         Route::get('/show_ajax/{id}', [LevelController::class, 'showAjax']);
+        Route::get('/import', [LevelController::class, 'import']);
+        Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
     });
-    
+
     // ADMIN AND MANAGER ROUTES
     // Inventory Management - Admin and Manager
     Route::prefix('barang')->middleware(['authorize:ADM,MNG'])->group(function () {
@@ -132,19 +135,19 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
         Route::get('/show_ajax/{id}', [SupplierController::class, 'showAjax']);
     });
-    
-   
+
+
     // Route::prefix('stok')->middleware(['authorize:ADM,MNG'])->group(function () {
     //     Route::get('/', [StokController::class, 'index']);
     //     Route::get('/list', [StokController::class, 'list']);
     // });
-    
-   
+
+
     // Route::prefix('penjualan')->middleware(['authorize:ADM,MNG,KAS'])->group(function () {
     //     Route::get('/', [PenjualanController::class, 'index']);
     //     Route::get('/list', [PenjualanController:E:class, 'list']);
     //     Route::post('/create', [PenjualanController::class, 'create']);
-       
+
     // });
 
 });

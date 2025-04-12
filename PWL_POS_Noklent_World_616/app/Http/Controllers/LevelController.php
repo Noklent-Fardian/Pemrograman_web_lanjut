@@ -6,6 +6,7 @@ use App\Models\Level;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class LevelController extends Controller
 {
@@ -128,11 +129,11 @@ class LevelController extends Controller
     public function delete($id)
     {
         $level = Level::find($id);
-        
+
         if (!$level) {
             return redirect('/level')->with('error', 'Data level tidak ditemukan');
         }
-        
+
         try {
             Level::destroy($id);
             return redirect('/level')->with('success', 'Data level berhasil dihapus');
@@ -141,7 +142,7 @@ class LevelController extends Controller
         }
     }
 
-    
+
     public function showAjax($id)
     {
         $level = Level::find($id);
@@ -258,4 +259,91 @@ class LevelController extends Controller
         return redirect('/');
     }
 
+
+    public function import()
+    {
+        return view('level.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_level' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $file = $request->file('file_level');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+            $errors = [];
+            $row = 1;
+
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    $row++;
+                    if ($baris > 1) { // Skip header row
+                        // Check if level_kode is unique
+                        $existingLevel = Level::where('level_kode', $value['A'])->first();
+                        if ($existingLevel) {
+                            $errors[] = "Baris $row: Kode Level '{$value['A']}' Terjadi duplikasi";
+                            continue;
+                        }
+
+                        if (empty($value['A']) || empty($value['B'])) {
+                            $errors[] = "Baris $row: Kode Level dan Nama Level harus diisi";
+                            continue;
+                        }
+
+                        $insert[] = [
+                            'level_kode' => $value['A'],
+                            'level_nama' => $value['B'],
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+
+                if (!empty($errors)) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Terdapat kesalahan pada data',
+                        'errors' => $errors
+                    ]);
+                }
+
+                if (count($insert) > 0) {
+                    Level::insertOrIgnore($insert);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Data level berhasil diimport'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tidak ada data yang diimport'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'File tidak berisi data yang valid'
+                ]);
+            }
+        }
+        return redirect('/level');
+    }
 }

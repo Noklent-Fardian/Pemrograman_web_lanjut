@@ -12,13 +12,16 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            
+
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <a href="{{ url('level/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Level Baru
                 </a>
-                <button onclick="modalAction('{{ url('/level/create_ajax') }}')"
-                    class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-primary btn-md">
+                    <i class="fas fa-file-excel mr-1"></i> Import Level
+                </button>
+                <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
+                    Ajax</button>
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari level...">
@@ -66,7 +69,7 @@
                     "dataType": "json",
                     "type": "GET",
                 },
-                
+
                 columns: [{
                     data: "level_id",
                     className: "text-center",
@@ -90,7 +93,7 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }, {
                     data: "AJAX",
                     className: "text-center",
@@ -99,9 +102,9 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }],
-                
+
                 language: {
                     processing: '<div class="spinner-border text-primary" role="status"></div>',
                     search: "",
