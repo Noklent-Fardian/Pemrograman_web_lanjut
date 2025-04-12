@@ -32,8 +32,11 @@
                 <a href="{{ url('user/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah User Baru
                 </a>
-                <button onclick="modalAction('{{ url('/user/create_ajax') }}')"
-                    class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-primary btn-md">
+                    <i class="fas fa-file-excel mr-1"></i> Import User
+                </button>
+                <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
+                    Ajax</button>
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari pengguna...">
@@ -75,7 +78,7 @@
         var dataUser;
         $(document).ready(function() {
             // Initialize DataTable
-             dataUser = $('#table_user').DataTable({
+            dataUser = $('#table_user').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
@@ -86,7 +89,7 @@
                         d.level_id = $('#level_id').val();
                     }
                 },
-                
+
                 columns: [{
                     data: "user_id",
                     className: "text-center",
@@ -118,7 +121,7 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }, {
                     data: "AJAX",
                     className: "text-center",
@@ -127,9 +130,9 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }],
-                
+
 
                 language: {
                     processing: '<div class="spinner-border text-primary" role="status"></div>',
@@ -164,7 +167,7 @@
             $('#level_id').on('change', function() {
                 dataUser.draw();
             });
-            
+
         });
     </script>
 @endpush
