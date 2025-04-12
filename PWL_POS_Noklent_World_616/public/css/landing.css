@@ -187,8 +187,25 @@ body {
     }
 }
 
-.logo-fern {
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+.logo-fern .logo:hover {
+    animation: none; 
+    transform: scale(1.05) translateY(-5px);
+    filter: saturate(1.05);
+    cursor: pointer;
+}
 
+.logo-fern {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -196,12 +213,10 @@ body {
 .logo-fern .logo {
     width: 300px;
     height: auto;
-    margin-bottom: 25px;
     border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-left: auto;
+    animation: float 3s ease-in-out infinite;
 }
 
-.logo-fern .logo:hover {
-    transform: translateY(-5px) scale(1.05);
-}
+

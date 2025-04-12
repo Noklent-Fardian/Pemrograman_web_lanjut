@@ -44,7 +44,7 @@
             <div class="welcome-content">
                 <img src="{{ asset('img/logo_clean.png') }}" alt="Logo" class="logo">
                 <h1>Selamat Datang!</h1>
-                <p>Masuk ke POS-PWL Noklent untuk membantu manajemen transaksi penjualan anda secara efisien.</p>
+                <p>Masuk ke POS-PWL Nokurento untuk membantu manajemen transaksi penjualan anda secara efisien.</p>
             </div>
         </div>
 
