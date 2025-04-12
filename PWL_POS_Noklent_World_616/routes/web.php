@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
         Route::get('/show_ajax/{id}', [KategoriController::class, 'showAjax']);
+        Route::get('/import', [KategoriController::class, 'import']);
+        Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
     });
 
     Route::prefix('supplier')->middleware(['authorize:ADM,MNG'])->group(function () {

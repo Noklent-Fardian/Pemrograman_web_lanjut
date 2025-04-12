@@ -6,6 +6,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 class KategoriController extends Controller
@@ -256,4 +257,91 @@ class KategoriController extends Controller
         }
         return redirect('/');
     }
+    // Add these methods to your KategoriController class
+public function import()
+{
+    return view('kategori.import');
+}
+
+public function import_ajax(Request $request)
+{
+    if ($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'file_kategori' => ['required', 'mimes:xlsx', 'max:1024']
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'msgField' => $validator->errors()
+            ]);
+        }
+
+        $file = $request->file('file_kategori');
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($file->getRealPath());
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = $sheet->toArray(null, false, true, true);
+        $insert = [];
+        $errors = [];
+        $row = 1;
+
+        if (count($data) > 1) {
+            foreach ($data as $baris => $value) {
+                $row++;
+                if ($baris > 1) { // Skip header row
+                    // Check if kategori_kode is unique
+                    $existingKategori = Kategori::where('kategori_kode', $value['A'])->first();
+                    if ($existingKategori) {
+                        $errors[] = "Baris $row: Kode Kategori '{$value['A']}' sudah digunakan";
+                        continue;
+                    }
+
+                    if (empty($value['A']) || empty($value['B'])) {
+                        $errors[] = "Baris $row: Kode Kategori dan Nama Kategori harus diisi";
+                        continue;
+                    }
+
+                    $insert[] = [
+                        'kategori_kode' => $value['A'],
+                        'kategori_nama' => $value['B'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+            }
+
+            if (!empty($errors)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Terdapat kesalahan pada data',
+                    'errors' => $errors
+                ]);
+            }
+
+            if (count($insert) > 0) {
+                Kategori::insertOrIgnore($insert);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data kategori berhasil diimport'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak ada data yang diimport'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'File tidak berisi data yang valid'
+            ]);
+        }
+    }
+    return redirect('/kategori');
+}
 }

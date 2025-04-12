@@ -12,11 +12,14 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            
+
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <a href="{{ url('kategori/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Kategori Baru
                 </a>
+                <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-primary btn-md">
+                    <i class="fas fa-file-excel mr-1"></i> Import Kategori
+                </button>
                 <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">
@@ -65,7 +68,7 @@
                     "dataType": "json",
                     "type": "GET",
                 },
-                
+
                 columns: [{
                     data: "kategori_id",
                     className: "text-center",
@@ -89,7 +92,7 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }, {
                     data: "AJAX",
                     className: "text-center",
@@ -98,9 +101,9 @@
                     render: function(data) {
                         return data;
                     }
-                    
+
                 }],
-                
+
                 language: {
                     processing: '<div class="spinner-border text-primary" role="status"></div>',
                     search: "",
