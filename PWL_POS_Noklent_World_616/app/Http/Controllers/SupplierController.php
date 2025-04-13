@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class SupplierController extends Controller
@@ -499,4 +500,16 @@ class SupplierController extends Controller
         $writer->save('php://output');
         exit;
     }
+    public function export_pdf()
+{
+    $suppliers = Supplier::orderBy('supplier_id')->get();
+    
+    $pdf = Pdf::loadView('supplier.export_pdf', ['suppliers' => $suppliers]);
+    $pdf->setPaper('a4', 'portrait');
+    $pdf->setOption("isRemoteEnabled", false);
+    $pdf->setOption("isPhpEnabled", false);
+    $pdf->setOption("isHtml5ParserEnabled", true);
+    
+    return $pdf->stream('Data Supplier ' . date('Y-m-d H:i:s') . '.pdf');
+}
 }

@@ -38,6 +38,9 @@
                 <a href="{{ url('/user/export_excel') }}" class="btn btn-export">
                     <i class="fas fa-file-export mr-1"></i> Export User
                 </a>
+                <a href="{{ url('/user/export_pdf') }}" class="btn btn-export">
+                    <i class="fas fa-file-pdf mr-1"></i> Export User PDF
+                </a>
                 <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
 
