@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class LevelController extends Controller
 {
@@ -339,4 +343,90 @@ class LevelController extends Controller
         }
         return redirect('/level');
     }
+    public function export_excel()
+{
+   
+    $levels = Level::all();
+
+    
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    
+    
+    $sheet->setCellValue('A1', 'DAFTAR LEVEL USER');
+    $sheet->mergeCells('A1:C1');
+    $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+    $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    
+  
+    $sheet->setCellValue('A2', 'No');
+    $sheet->setCellValue('B2', 'Kode Level');
+    $sheet->setCellValue('C2', 'Nama Level');
+    
+   
+    $headerStyle = [
+        'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => ['rgb' => '8664bc']
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN,
+                'color' => ['rgb' => '000000']
+            ]
+        ]
+    ];
+    $sheet->getStyle('A2:C2')->applyFromArray($headerStyle);
+    
+    $sheet->getRowDimension(2)->setRowHeight(25);
+    $sheet->freezePane('A3');
+
+   
+    $no = 1;
+    $row = 3;
+    foreach ($levels as $level) {
+        $sheet->setCellValue('A' . $row, $no);
+        $sheet->setCellValue('B' . $row, $level->level_kode);
+        $sheet->setCellValue('C' . $row, $level->level_nama);
+        
+       
+        $sheet->getStyle('A' . $row . ':C' . $row)->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => '000000']
+                ]
+            ]
+        ]);
+        
+        $row++;
+        $no++;
+    }
+
+  
+    foreach (range('A', 'C') as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
+
+    
+    $sheet->setTitle('Data Level');
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $filename = 'Data Level User ' . date('Y-m-d H:i:s') . '.xlsx';
+    
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $filename . '"');
+    header('Cache-Control: max-age=0');
+    header('Cache-Control: max-age=1');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+    header('Cache-Control: cache, must-revalidate');
+    header('Pragma: public');
+    $writer->save('php://output');
+    exit;
+}
 }
