@@ -20,6 +20,9 @@
                 <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-primary btn-md">
                     <i class="fas fa-file-excel mr-1"></i> Import Kategori
                 </button>
+                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-export">
+                    <i class="fas fa-file-export mr-1"></i> Export Kategori
+                </a>
                 <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">

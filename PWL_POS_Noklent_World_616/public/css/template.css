@@ -304,7 +304,7 @@ hr {
 .btn-export {
     background: linear-gradient(135deg, #8e44ad, #9b59b6);
     border: none;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 8px 20px;
     box-shadow: 0 4px 6px rgba(142, 68, 173, 0.25);
     transition: all 0.3s ease;
@@ -318,4 +318,63 @@ hr {
 
 .btn-export i {
     margin-right: 5px;
+}
+
+.sidebar {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.sidebar-dark-primary {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
+    color: #fff;
+}
+
+
+
+.sidebar .brand-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+}
+
+.sidebar .brand-link .brand-image {
+    max-height: 40px;
+    transition: all 0.3s ease;
+}
+
+.sidebar .brand-link:hover .brand-image {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.sidebar .brand-text {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+}
+
+/* Improved search box */
+.sidebar-search {
+    margin: 10px 15px;
+}
+
+.sidebar-search .form-control-sidebar {
+
+    border: none !important;
+    border-radius: 20px !important;
+    color: #fff !important;
+    padding-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-search .form-control-sidebar:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+}
+
+.sidebar-search .btn-sidebar {
+    background: transparent !important;
+   
 }

@@ -119,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/show_ajax/{id}', [KategoriController::class, 'showAjax']);
         Route::get('/import', [KategoriController::class, 'import']);
         Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
+        Route::get('export_excel', [KategoriController::class, 'export_excel']);
     });
 
     Route::prefix('supplier')->middleware(['authorize:ADM,MNG'])->group(function () {

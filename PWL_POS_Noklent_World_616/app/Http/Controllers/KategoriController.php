@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+
 
 
 class KategoriController extends Controller
@@ -130,11 +135,11 @@ class KategoriController extends Controller
     public function delete($id)
     {
         $kategori = Kategori::find($id);
-        
+
         if (!$kategori) {
             return redirect('/kategori')->with('error', 'Data kategori tidak ditemukan');
         }
-        
+
         try {
             Kategori::destroy($id);
             return redirect('/kategori')->with('success', 'Data kategori berhasil dihapus');
@@ -258,84 +263,162 @@ class KategoriController extends Controller
         return redirect('/');
     }
     // Add these methods to your KategoriController class
-public function import()
-{
-    return view('kategori.import');
-}
+    public function import()
+    {
+        return view('kategori.import');
+    }
 
-public function import_ajax(Request $request)
-{
-    if ($request->ajax() || $request->wantsJson()) {
-        $rules = [
-            'file_kategori' => ['required', 'mimes:xlsx', 'max:1024']
-        ];
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_kategori' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
 
-        $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi Gagal',
-                'msgField' => $validator->errors()
-            ]);
-        }
-
-        $file = $request->file('file_kategori');
-        $reader = IOFactory::createReader('Xlsx');
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($file->getRealPath());
-        $sheet = $spreadsheet->getActiveSheet();
-        $data = $sheet->toArray(null, false, true, true);
-        $insert = [];
-        $errors = [];
-        $row = 1;
-
-        if (count($data) > 1) {
-            foreach ($data as $baris => $value) {
-                $row++;
-                if ($baris > 1) { 
-
-                    if (empty($value['A']) || empty($value['B'])) {
-                        $errors[] = "Baris $row: Kode Kategori dan Nama Kategori harus diisi";
-                        continue;
-                    }
-
-                    $insert[] = [
-                        'kategori_kode' => $value['A'],
-                        'kategori_nama' => $value['B'],
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                }
-            }
-
-            if (!empty($errors)) {
+            if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Terdapat kesalahan pada data',
-                    'errors' => $errors
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
                 ]);
             }
 
-            if (count($insert) > 0) {
-                Kategori::insertOrIgnore($insert);
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data kategori berhasil diimport'
-                ]);
+            $file = $request->file('file_kategori');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+            $errors = [];
+            $row = 1;
+
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    $row++;
+                    if ($baris > 1) {
+
+                        if (empty($value['A']) || empty($value['B'])) {
+                            $errors[] = "Baris $row: Kode Kategori dan Nama Kategori harus diisi";
+                            continue;
+                        }
+
+                        $insert[] = [
+                            'kategori_kode' => $value['A'],
+                            'kategori_nama' => $value['B'],
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+
+                if (!empty($errors)) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Terdapat kesalahan pada data',
+                        'errors' => $errors
+                    ]);
+                }
+
+                if (count($insert) > 0) {
+                    Kategori::insertOrIgnore($insert);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Data kategori berhasil diimport'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tidak ada data yang diimport'
+                    ]);
+                }
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Tidak ada data yang diimport'
+                    'message' => 'File tidak berisi data yang valid'
                 ]);
             }
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'File tidak berisi data yang valid'
-            ]);
         }
+        return redirect('/kategori');
     }
-    return redirect('/kategori');
+
+public function export_excel()
+{
+    $kategori = Kategori::orderBy('kategori_id')->get();
+
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    
+    $sheet->setCellValue('A1', 'DAFTAR KATEGORI BARANG');
+    $sheet->mergeCells('A1:C1');
+    $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+    $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    
+    $sheet->setCellValue('A2', 'No');
+    $sheet->setCellValue('B2', 'Kode Kategori');
+    $sheet->setCellValue('C2', 'Nama Kategori');
+    
+    $headerStyle = [
+        'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => ['rgb' => '8664bc']
+        ],
+        'alignment' => [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN,
+                'color' => ['rgb' => '000000']
+            ]
+        ]
+    ];
+    $sheet->getStyle('A2:C2')->applyFromArray($headerStyle);
+    
+    $sheet->getRowDimension(2)->setRowHeight(25);
+    $sheet->freezePane('A3');
+
+    $no = 1;
+    $baris = 3;
+    foreach ($kategori as $value) {
+        $sheet->setCellValue('A' . $baris, $no);
+        $sheet->setCellValue('B' . $baris, $value->kategori_kode);
+        $sheet->setCellValue('C' . $baris, $value->kategori_nama);
+        
+        $sheet->getStyle('A' . $baris . ':C' . $baris)->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => '000000']
+                ]
+            ]
+        ]);
+        
+        $baris++;
+        $no++;
+    }
+
+    foreach (range('A', 'C') as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
+
+    $sheet->setTitle('Data Kategori');
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $filename = 'Data Kategori ' . date('Y-m-d H:i:s') . '.xlsx';
+    
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $filename . '"');
+    header('Cache-Control: max-age=0');
+    header('Cache-Control: max-age=1');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+    header('Cache-Control: cache, must-revalidate');
+    header('Pragma: public');
+    $writer->save('php://output');
+    exit;
 }
 }
