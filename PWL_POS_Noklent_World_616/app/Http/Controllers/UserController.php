@@ -332,13 +332,7 @@ public function import_ajax(Request $request)
                         $errors[] = "Baris $row: Level ID tidak valid";
                         continue;
                     }
-                    
-                    // Check if username is unique
-                    $existingUser = UserModel::where('username', $value['B'])->first();
-                    if ($existingUser) {
-                        $errors[] = "Baris $row: Username '{$value['B']}' sudah digunakan";
-                        continue;
-                    }
+                
                     
                     $insert[] = [
                         'level_id' => $value['A'],

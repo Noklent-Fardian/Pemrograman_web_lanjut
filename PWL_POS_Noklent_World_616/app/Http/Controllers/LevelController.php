@@ -296,13 +296,6 @@ class LevelController extends Controller
                 foreach ($data as $baris => $value) {
                     $row++;
                     if ($baris > 1) { // Skip header row
-                        // Check if level_kode is unique
-                        $existingLevel = Level::where('level_kode', $value['A'])->first();
-                        if ($existingLevel) {
-                            $errors[] = "Baris $row: Kode Level '{$value['A']}' Terjadi duplikasi";
-                            continue;
-                        }
-
                         if (empty($value['A']) || empty($value['B'])) {
                             $errors[] = "Baris $row: Kode Level dan Nama Level harus diisi";
                             continue;

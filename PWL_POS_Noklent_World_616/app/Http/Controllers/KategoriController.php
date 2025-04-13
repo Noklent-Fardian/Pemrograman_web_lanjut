@@ -293,13 +293,7 @@ public function import_ajax(Request $request)
         if (count($data) > 1) {
             foreach ($data as $baris => $value) {
                 $row++;
-                if ($baris > 1) { // Skip header row
-                    // Check if kategori_kode is unique
-                    $existingKategori = Kategori::where('kategori_kode', $value['A'])->first();
-                    if ($existingKategori) {
-                        $errors[] = "Baris $row: Kode Kategori '{$value['A']}' sudah digunakan";
-                        continue;
-                    }
+                if ($baris > 1) { 
 
                     if (empty($value['A']) || empty($value['B'])) {
                         $errors[] = "Baris $row: Kode Kategori dan Nama Kategori harus diisi";
