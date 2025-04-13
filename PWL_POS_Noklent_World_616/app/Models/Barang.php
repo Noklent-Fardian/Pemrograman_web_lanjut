@@ -37,4 +37,11 @@ class Barang extends Model
     {
         return $this->hasMany(Stock::class, 'barang_id', 'barang_id');
     }
+    public function getMarginPercebtage()
+    {
+        if ($this->harga_beli > 0) {
+            return (($this->harga_jual - $this->harga_beli) / $this->harga_beli) * 100;
+        }
+        return 0; // Avoid division by zero
+    }
 }
