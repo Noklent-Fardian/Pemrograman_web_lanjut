@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 
 class SupplierController extends Controller
@@ -408,5 +412,91 @@ class SupplierController extends Controller
             }
             return redirect('/supplier');
         }
+    }
+
+    public function export_excel()
+    {
+        $suppliers = Supplier::orderBy('supplier_id')->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'LAPORAN DATA SUPPLIER');
+        $sheet->mergeCells('A1:G1');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        $sheet->setCellValue('A2', 'No');
+        $sheet->setCellValue('B2', 'Kode Supplier');
+        $sheet->setCellValue('C2', 'Nama Supplier');
+        $sheet->setCellValue('D2', 'Alamat');
+        $sheet->setCellValue('E2', 'Kontak');
+        $sheet->setCellValue('F2', 'Email');
+        $sheet->setCellValue('G2', 'Status');
+
+        $headerStyle = [
+            'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '8664bc']
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => '000000']
+                ]
+            ]
+        ];
+        $sheet->getStyle('A2:G2')->applyFromArray($headerStyle);
+
+        $sheet->getRowDimension(2)->setRowHeight(25);
+        $sheet->freezePane('A3');
+
+        $no = 1;
+        $row = 3;
+        foreach ($suppliers as $supplier) {
+            $sheet->setCellValue('A' . $row, $no);
+            $sheet->setCellValue('B' . $row, $supplier->supplier_kode);
+            $sheet->setCellValue('C' . $row, $supplier->name_supplier);
+            $sheet->setCellValue('D' . $row, $supplier->supplier_alamat);
+            $sheet->setCellValue('E' . $row, $supplier->supplier_contact);
+            $sheet->setCellValue('F' . $row, $supplier->supplier_email);
+            $sheet->setCellValue('G' . $row, $supplier->supplier_aktif ? 'Aktif' : 'Tidak Aktif');
+
+            $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]
+            ]);
+
+            $row++;
+            $no++;
+        }
+
+        foreach (range('A', 'G') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data Supplier');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data Supplier ' . date('Y-m-d H:i:s') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+        $writer->save('php://output');
+        exit;
     }
 }

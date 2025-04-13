@@ -20,6 +20,9 @@
                 <button onclick="modalAction('{{ url('/supplier/import') }}')" class="btn btn-primary btn-md">
                     <i class="fas fa-file-excel mr-1"></i> Import Supplier
                 </button>
+                <a href="{{ url('/supplier/export_excel') }}" class="btn btn-export">
+                    <i class="fas fa-file-export mr-1"></i> Export Supplier
+                </a>
                 <button onclick="modalAction('{{ url('/supplier/create_ajax') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">

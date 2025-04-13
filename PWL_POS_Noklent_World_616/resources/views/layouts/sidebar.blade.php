@@ -81,6 +81,14 @@
                 </a>
             </li>
             @endif
+            @if (in_array(Auth::user()->getLevelCode(), ['CUST']))
+            <li class="nav-item">
+                <a href="{{ url('/pesan') }}" class="nav-link {{ ($activeMenu ?? '') == 'pesan' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-shopping-cart"></i>
+                    <p>Pesan Antar</p>
+                </a>
+            </li>
+            @endif
             
             <li class="nav-item mt-4">
                 <a href="javascript:void(0)" onclick="confirmLogout()" class="nav-link bg-danger text-white">
