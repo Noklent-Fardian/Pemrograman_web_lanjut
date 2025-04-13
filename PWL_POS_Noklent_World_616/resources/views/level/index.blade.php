@@ -23,6 +23,9 @@
                 <a href="{{ url('/level/export_excel') }}" class="btn btn-export">
                     <i class="fas fa-file-export mr-1"></i> Export Level
                 </a>
+                <a href="{{ url('/level/export_pdf') }}" class="btn btn-export">
+                    <i class="fas fa-file-pdf mr-1"></i> Export Level PDF
+                </a>
                 <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
                 <div class="form-group has-search mb-0">

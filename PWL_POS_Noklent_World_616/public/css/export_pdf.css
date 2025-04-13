@@ -1,0 +1,118 @@
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    margin: 15px 25px;
+    line-height: 1.4;
+    color: #333;
+}
+
+/* Header Styling */
+.letterhead {
+    border-bottom: 2px solid #3a2e88;
+}
+
+.letterhead td {
+    vertical-align: middle;
+}
+
+img.logo {
+    height: 75px;
+    width: auto;
+}
+
+/* Typography */
+.ministry {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #333;
+}
+
+.institution {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #3a2e88;
+    margin: 5px 0;
+}
+
+.address {
+    font-size: 9pt;
+    color: #555;
+}
+
+/* Document Title */
+.document-title {
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+    color: #3a2e88;
+    margin: 25px 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table Styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.data-table th {
+    background-color: #f0f0f8;
+    color: #3a2e88;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 8px;
+    border: 1px solid #ccc;
+    font-size: 11pt;
+}
+
+.data-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    font-size: 10pt;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Other styling */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 9pt;
+    color: #777;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+/* Page number */
+.page-number {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 9pt;
+}
+
+/* Watermark */
+.watermark {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 9pt;
+    color: #999;
+}

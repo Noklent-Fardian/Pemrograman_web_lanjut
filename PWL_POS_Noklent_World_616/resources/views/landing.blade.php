@@ -39,6 +39,16 @@
                             </p>
                         </div>
                     </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Digitize your company</h3>
+                            <p>Transform your business with paperless operations and streamlined digital workflows. (Go Green)</p>
+                        </div>
+                    </div>
 
                     <div class="feature-item">
                         <div class="feature-icon">
@@ -46,7 +56,7 @@
                         </div>
                         <div class="feature-text">
                             <h3>Inventory Management</h3>
-                            <p>Track your stock.</p>
+                            <p>Track your stock. (Under Maintenante)</p>
                         </div>
                     </div>
 
