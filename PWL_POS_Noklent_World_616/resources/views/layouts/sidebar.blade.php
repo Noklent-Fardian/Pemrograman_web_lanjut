@@ -24,6 +24,8 @@
                     <p>Dashboard</p>
                 </a>
             </li>
+            
+            @if (in_array(Auth::user()->getLevelCode(), ['ADM']))
             <li class="nav-header">Data Pengguna</li>
             <li class="nav-item">
                 <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu ?? '') == 'level' ? 'active' : '' }}">
@@ -37,6 +39,9 @@
                     <p>Data User</p>
                 </a>
             </li>
+            @endif
+            
+            @if (in_array(Auth::user()->getLevelCode(), ['ADM', 'MNG']))
             <li class="nav-header">Data Barang</li>
             <li class="nav-item">
                 <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu ?? '') == 'kategori' ? 'active' : '' }}">
@@ -56,19 +61,27 @@
                     <p>Data Supplier</p>
                 </a>
             </li>
+            @endif
+            
             <li class="nav-header">Data Transaksi</li>
+            @if (in_array(Auth::user()->getLevelCode(), ['ADM', 'MNG']))
             <li class="nav-item">
                 <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu ?? '') == 'stok' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>Stok Barang</p>
                 </a>
             </li>
+            @endif
+            
+            @if (in_array(Auth::user()->getLevelCode(), ['ADM', 'MNG', 'KAS']))
             <li class="nav-item">
                 <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu ?? '') == 'penjualan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cash-register"></i>
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            @endif
+            
             <li class="nav-item mt-4">
                 <a href="javascript:void(0)" onclick="confirmLogout()" class="nav-link bg-danger text-white">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
