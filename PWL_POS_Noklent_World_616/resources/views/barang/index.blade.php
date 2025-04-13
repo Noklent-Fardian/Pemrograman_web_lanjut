@@ -38,7 +38,7 @@
                 <a href="{{ url('/barang/export_excel') }}" class="btn btn-export">
                     <i class="fas fa-file-export mr-1"></i> Export Barang
                 </a>
-             
+
                 <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
                 <div class="form-group has-search mb-0">

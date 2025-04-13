@@ -10,6 +10,10 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Models\Level;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class UserController extends Controller
 {
@@ -290,88 +294,170 @@ class UserController extends Controller
         return view('user.show_ajax', compact('user'));
     }
     public function import()
-{
-    return view('user.import');
-}
+    {
+        return view('user.import');
+    }
 
-public function import_ajax(Request $request)
-{
-    if ($request->ajax() || $request->wantsJson()) {
-        $rules = [
-            // Validate file is xlsx format, max 1MB
-            'file_user' => ['required', 'mimes:xlsx', 'max:1024']
-        ];
-        
-        $validator = Validator::make($request->all(), $rules);
-        
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi Gagal',
-                'msgField' => $validator->errors()
-            ]);
-        }
-        
-        $file = $request->file('file_user');
-        $reader = IOFactory::createReader('Xlsx');
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($file->getRealPath());
-        $sheet = $spreadsheet->getActiveSheet();
-        $data = $sheet->toArray(null, false, true, true);
-        $insert = [];
-        $errors = [];
-        $row = 1;
-        
-        if (count($data) > 1) {
-            foreach ($data as $baris => $value) {
-                $row++;
-                if ($baris > 1) { // Skip header row
-                    // Check if level_id exists
-                    $level = DB::table('m_level')->where('level_id', $value['A'])->first();
-                    if (!$level) {
-                        $errors[] = "Baris $row: Level ID tidak valid";
-                        continue;
-                    }
-                
-                    
-                    $insert[] = [
-                        'level_id' => $value['A'],
-                        'username' => $value['B'],
-                        'nama' => $value['C'],
-                        'password' => Hash::make($value['D']), // Hash the password
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                }
-            }
-            
-            if (!empty($errors)) {
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                // Validate file is xlsx format, max 1MB
+                'file_user' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Terdapat kesalahan pada data',
-                    'errors' => $errors
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
                 ]);
             }
-            
-            if (count($insert) > 0) {
-                UserModel::insertOrIgnore($insert);
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data user berhasil diimport'
-                ]);
+
+            $file = $request->file('file_user');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+            $errors = [];
+            $row = 1;
+
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    $row++;
+                    if ($baris > 1) { // Skip header row
+                        // Check if level_id exists
+                        $level = DB::table('m_level')->where('level_id', $value['A'])->first();
+                        if (!$level) {
+                            $errors[] = "Baris $row: Level ID tidak valid";
+                            continue;
+                        }
+
+
+                        $insert[] = [
+                            'level_id' => $value['A'],
+                            'username' => $value['B'],
+                            'nama' => $value['C'],
+                            'password' => Hash::make($value['D']), // Hash the password
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+
+                if (!empty($errors)) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Terdapat kesalahan pada data',
+                        'errors' => $errors
+                    ]);
+                }
+
+                if (count($insert) > 0) {
+                    UserModel::insertOrIgnore($insert);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Data user berhasil diimport'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tidak ada data yang diimport'
+                    ]);
+                }
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Tidak ada data yang diimport'
+                    'message' => 'File tidak berisi data yang valid'
                 ]);
             }
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'File tidak berisi data yang valid'
-            ]);
         }
+        return redirect('/user');
     }
-    return redirect('/user');
-}
+
+    public function export_excel()
+    {
+        $users = UserModel::with('level')->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'DAFTAR USER SISTEM');
+        $sheet->mergeCells('A1:E1');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        $sheet->setCellValue('A2', 'No');
+        $sheet->setCellValue('B2', 'Username');
+        $sheet->setCellValue('C2', 'Nama Lengkap');
+        $sheet->setCellValue('D2', 'Level');
+        $sheet->setCellValue('E2', 'Kode Level');
+
+        $headerStyle = [
+            'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '8664bc']
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['rgb' => '000000']
+                ]
+            ]
+        ];
+        $sheet->getStyle('A2:E2')->applyFromArray($headerStyle);
+
+        $sheet->getRowDimension(2)->setRowHeight(25);
+        $sheet->freezePane('A3');
+
+        $no = 1;
+        $row = 3;
+        foreach ($users as $user) {
+            $sheet->setCellValue('A' . $row, $no);
+            $sheet->setCellValue('B' . $row, $user->username);
+            $sheet->setCellValue('C' . $row, $user->nama);
+            $sheet->setCellValue('D' . $row, $user->level->level_nama);
+            $sheet->setCellValue('E' . $row, $user->level->level_kode);
+
+            $sheet->getStyle('A' . $row . ':E' . $row)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['rgb' => '000000']
+                    ]
+                ]
+            ]);
+
+            $row++;
+            $no++;
+        }
+
+        foreach (range('A', 'E') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data User');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data User ' . date('Y-m-d H:i:s') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+        $writer->save('php://output');
+        exit;
+    }
 }

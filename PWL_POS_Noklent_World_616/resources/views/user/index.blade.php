@@ -35,8 +35,12 @@
                 <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-primary btn-md">
                     <i class="fas fa-file-excel mr-1"></i> Import User
                 </button>
+                <a href="{{ url('/user/export_excel') }}" class="btn btn-export">
+                    <i class="fas fa-file-export mr-1"></i> Export User
+                </a>
                 <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
+
                 <div class="form-group has-search mb-0">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="text" class="form-control" id="searchBox" placeholder="Cari pengguna...">
