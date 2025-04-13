@@ -17,6 +17,9 @@
                 <a href="{{ url('supplier/create') }}" class="btn btn-success btn-md animate__animated animate__fadeIn">
                     <i class="fas fa-plus-circle mr-1"></i> Tambah Supplier Baru
                 </a>
+                <button onclick="modalAction('{{ url('/supplier/import') }}')" class="btn btn-primary btn-md">
+                    <i class="fas fa-file-excel mr-1"></i> Import Supplier
+                </button>
                 <button onclick="modalAction('{{ url('/supplier/create_ajax') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 <div class="form-group has-search mb-0">

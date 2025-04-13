@@ -6,6 +6,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 class SupplierController extends Controller
@@ -311,6 +312,101 @@ class SupplierController extends Controller
                 'status' => false,
                 'message' => 'Data supplier tidak ditemukan'
             ]);
+        }
+    }
+    public function import()
+    {
+        return view('supplier.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_supplier' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $file = $request->file('file_supplier');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+            $errors = [];
+            $row = 1;
+
+
+            try {
+                if (count($data) > 1) {
+                    foreach ($data as $baris => $value) {
+                        $row++;
+                        if ($baris > 1) { // Skip header row
+
+                            // Validate required fields
+                            if (empty($value['A']) || empty($value['B']) || empty($value['C']) || empty($value['D']) || empty($value['G'])) {
+                                $errors[] = "Baris $row: Kode, Nama, Alamat, dan Kontak Supplier harus diisi";
+                                continue;
+                            }
+
+                            $insert[] = [
+                                'supplier_kode' => $value['A'],
+                                'name_supplier' => $value['B'],
+                                'supplier_alamat' => $value['C'],
+                                'supplier_contact' => $value['D'],
+                                'supplier_email' => $value['E'] ?? null,
+                                'supplier_aktif' => $value['F'] ?? 0,
+                                'supplier_keterangan' => $value['G'] ?? null,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ];
+                        }
+                    }
+
+                    if (!empty($errors)) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Terdapat kesalahan pada data',
+                            'errors' => $errors
+                        ]);
+                    }
+
+                    if (count($insert) > 0) {
+                        Supplier::insertOrIgnore($insert);
+                        return response()->json([
+                            'status' => true,
+                            'message' => 'Data supplier berhasil diimport'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Tidak ada data yang diimport'
+                        ]);
+                    }
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'File tidak berisi data yang valid'
+                    ]);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Error processing file: ' . $e->getMessage(),
+                    'trace' => $e->getTrace()
+                ]);
+            }
+            return redirect('/supplier');
         }
     }
 }
