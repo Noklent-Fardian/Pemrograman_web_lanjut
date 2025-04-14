@@ -95,13 +95,14 @@ class PenjualanController extends Controller
 
         
         $date = date('Ymd');
-        $latestPenjualan = Penjualan::where('penjualan_kode', 'like', 'TR-' . $date . '-%')
+        $code_fisrt='TR-';
+        $latestPenjualan = Penjualan::where('penjualan_kode', 'like', $code_fisrt . $date . '-%')
             ->orderBy('penjualan_kode', 'desc')
             ->first();
 
         $lastNumber = $latestPenjualan ? (int)substr($latestPenjualan->penjualan_kode, -4) : 0;
         $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
-        $transactionCode = 'TR-' . $date . '-' . $newNumber;
+        $transactionCode = $code_fisrt . $date . '-' . $newNumber;
 
         return view('penjualan.create', compact('breadcrumb', 'page', 'activeMenu', 'barang', 'transactionCode'));
     }
