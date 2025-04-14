@@ -9,8 +9,9 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenjualanController;
-use App\Http\Controllers\StokController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\LandingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -153,17 +154,30 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    // Route::prefix('stok')->middleware(['authorize:ADM,MNG'])->group(function () {
-    //     Route::get('/', [StokController::class, 'index']);
-    //     Route::get('/list', [StokController::class, 'list']);
-    // });
+    Route::prefix('stok')->middleware(['authorize:ADM,MNG'])->group(function () {
+        Route::get('/', [StockController::class, 'index']);
+        Route::get('/list', [StockController::class, 'list']);
+        Route::post('/', [StockController::class, 'store']);
+        Route::get('/{id}', [StockController::class, 'show']);
+        Route::get('/{id}/edit', [StockController::class, 'edit']);
+        Route::put('/{id}', [StockController::class, 'update']);
+        Route::delete('/{id}', [StockController::class, 'destroy']);
+        Route::get('/export_excel', [StockController::class, 'export_excel']);
+        Route::get('/export_pdf', [StockController::class, 'export_pdf']);
+        Route::get('/show_allBarang', [StockController::class, 'showAllBarang']);
+    });
 
 
-    // Route::prefix('penjualan')->middleware(['authorize:ADM,MNG,KAS'])->group(function () {
-    //     Route::get('/', [PenjualanController::class, 'index']);
-    //     Route::get('/list', [PenjualanController:E:class, 'list']);
-    //     Route::post('/create', [PenjualanController::class, 'create']);
-
-    // });
+    Route::prefix('penjualan')->middleware(['authorize:ADM,MNG,KAS'])->group(function () {
+        Route::get('/', [PenjualanController::class, 'index']);
+        Route::get('/list', [PenjualanController::class, 'list']);
+        Route::get('/create', [PenjualanController::class, 'create']);
+        Route::post('/', [PenjualanController::class, 'store']);
+        Route::get('/{id}', [PenjualanController::class, 'show'])->where('id', '[0-9]+');
+        Route::get('/{id}/pdf', [PenjualanController::class, 'generatePdf'])->where('id', '[0-9]+');
+        Route::get('/export_excel', [PenjualanController::class, 'export_excel']);
+        Route::get('/export_pdf', [PenjualanController::class, 'export_pdf']);
+        Route::get('/barang/{id}', [PenjualanController::class, 'getBarangInfo'])->where('id', '[0-9]+');
+    });
 
 });

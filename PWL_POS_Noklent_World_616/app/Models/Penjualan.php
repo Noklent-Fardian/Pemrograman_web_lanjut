@@ -21,49 +21,37 @@ class Penjualan extends Model
         'tanggal_penjualan'
     ];
 
-    /**
-     * Get the user associated with the penjualan.
-     */
+  
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     }
 
-    /**
-     * Get the details for this penjualan.
-     */
+ 
     public function details(): HasMany
     {
         return $this->hasMany(PenjualanDetail::class, 'penjualan_id', 'penjualan_id');
     }
 
-    /**
-     * Get transaction ID
-     */
+  
     public function getId()
     {
         return $this->penjualan_id;
     }
     
-    /**
-     * Get transaction date
-     */
+  
     public function getTanggal()
     {
         return $this->tanggal_penjualan;
     }
     
-    /**
-     * Get buyer name
-     */
+ 
     public function getNamaPembeli()
     {
         return $this->pembeli; 
     }
     
-    /**
-     * Calculate total purchase price
-     */
+   
     public function getTotalHarga()
     {
         // Calculate total from all items in detail
@@ -74,9 +62,7 @@ class Penjualan extends Model
         return $total;
     }
     
-    /**
-     * Get a formatted array of transaction data
-     */
+ 
     public function getTransactionData()
     {
         return [
