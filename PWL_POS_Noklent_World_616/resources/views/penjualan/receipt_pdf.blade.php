@@ -149,9 +149,9 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $detail->barang->barang_nama }}</td>
-                <td class="right">{{ number_format($detail->harga, 0, ',', '.') }}</td>
-                <td class="center">{{ $detail->jumlah }}</td>
-                <td class="right">{{ number_format($detail->harga * $detail->jumlah, 0, ',', '.') }}</td>
+                <td class="right">{{ number_format($detail->harga_barang, 0, ',', '.') }}</td>
+                <td class="center">{{ $detail->jumlah_barang }}</td>
+                <td class="right">{{ number_format($detail->harga_barang * $detail->jumlah_barang, 0, ',', '.') }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -163,7 +163,7 @@
                 <td colspan="4" class="right">TOTAL</td>
                 <td class="right">
                     Rp {{ number_format($penjualan->details->sum(function($detail) {
-                        return $detail->jumlah * $detail->harga;
+                        return $detail->jumlah_barang * $detail->harga_barang;
                     }), 0, ',', '.') }}
                 </td>
             </tr>
