@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'username' => 'admin@localhost',
             'password' => Hash::make('admin'),
             'level_id' => 1,
+            'photo' => 'admin.png',
         ]);
 
         DB::table('m_user')->insert([
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             'username' => 'manager@localhost',
             'password' => Hash::make('manager'),
             'level_id' => 2,
+            'photo' => 'manager.png',
         ]);
 
         DB::table('m_user')->insert([
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
             'username' => 'kasir@localhost',
             'password' => Hash::make('kasir'),
             'level_id' => 3,
+            'photo' => 'kasir.png',
         ]);
     }
 }

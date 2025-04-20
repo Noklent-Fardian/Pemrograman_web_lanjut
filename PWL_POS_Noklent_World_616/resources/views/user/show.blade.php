@@ -23,7 +23,8 @@
                         <div class="col-md-3 text-center">
                             <div class="user-avatar-container mb-3">
                                 <div class="user-avatar">
-                                    <i class="fas fa-user-circle"></i>
+                                    <img src="{{ asset('img/user/' . ($user->photo ?: 'default.png')) }}" alt="User Image"
+                                    class="img-fluid rounded-circle mb-3 user-profile-image">
                                 </div>
                             </div>
                             <h4 class="font-weight-bold mb-1">{{ $user->nama }}</h4>

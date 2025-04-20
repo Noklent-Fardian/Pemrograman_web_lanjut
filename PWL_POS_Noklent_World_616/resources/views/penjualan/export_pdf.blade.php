@@ -48,10 +48,10 @@
                     <td class="text-right">{{ $penjualan->details->count() }}</td>
                     <td class="text-right">
                         {{ number_format($penjualan->details->sum(function($detail) { 
-                            return $detail->jumlah * $detail->harga; 
+                            return $detail->jumlah_barang * $detail->harga_barang; 
                         }), 0, ',', '.') }}
                     </td>
-                </tr>
+                </tr>sa
             @endforeach
         </tbody>
     </table>

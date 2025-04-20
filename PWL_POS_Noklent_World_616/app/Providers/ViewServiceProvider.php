@@ -34,6 +34,7 @@ class ViewServiceProvider extends ServiceProvider
                     'username' => $user->username,
                     'levelName' => $user->level->level_nama ?? 'User',
                     'levelKode' => $user->level->level_kode ?? 'user',
+                    'photo' => Auth::user()->photo ?: 'default.png',
                 ];
             }
             
