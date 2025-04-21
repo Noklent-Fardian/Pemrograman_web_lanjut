@@ -22,6 +22,7 @@ use App\Http\Controllers\LandingController;
 Route::get('/', [LandingController::class, 'index']);
 Route::pattern('id', '[0-9]+');
 Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('test', [AuthController::class, 'testApiRoute'])->name('test');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('register', [AuthController::class, 'register'])->name('register');

@@ -12,6 +12,14 @@ use App\Models\UserModel;
 
 class AuthController extends Controller
 {
+    public function testApiRoute()
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'API Route is working',
+        ]);
+        return view('auth.test');
+    }
     public function login()
     {
         if (Auth::check()) { // jika sudah login, maka redirect ke halaman home 
