@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/img/user
+/public/img/barang
 /storage/*.key
 /vendor
 .env
