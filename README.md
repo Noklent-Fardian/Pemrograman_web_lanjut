@@ -57,5 +57,5 @@ php artisan serve
 
 
 <p align="center">
-  Made with  by Noklent Fardian Erix
+  Made by Noklent Fardian Erix
 </p>
